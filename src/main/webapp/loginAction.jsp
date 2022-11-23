@@ -5,15 +5,18 @@
 <%	
 	// controller
 	request.setCharacterEncoding("utf-8");
-	String loginMemberId = request.getParameter("loginMemberId");
+	String memberId = request.getParameter("memberId");
 	String memberPw = request.getParameter("memberPw");
 	
 	Member paramMember = new Member(); // 모델 호출시 매개값
-	
+	paramMember.setMemberId(memberId);
+	paramMember.setMemberPw(memberPw);
+	System.out.println(paramMember.getMemberId());
 	
 	// 분리된 model을 호출
 	MemberDao memberDao = new MemberDao();
 	Member resultMember = memberDao.login(paramMember);
+	
 	
 	String redirectUrl = "/loginForm.jsp";
 	

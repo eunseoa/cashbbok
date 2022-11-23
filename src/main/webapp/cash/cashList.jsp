@@ -1,12 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>
+<%@ page import="vo.*" %>
 <%
 	// Controller : session, rquest
 	request.setCharacterEncoding("utf-8");
+	if(session.getAttribute("loginMember") == null) {
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	}
+	
+	// 세션에 저장된 멤버(현재 로그인 사용자)
+	Member loginMember = ((Member) session.getAttribute("loginMember"));
+	
 	int year = 0;
 	int month = 0;
-	
 	
 	if(request.getParameter("year") == null || request.getParameter("month") == null) {
 		Calendar today = Calendar.getInstance(); // 오늘날짜
@@ -44,7 +52,8 @@
 	
 	// Model 호출 : 일별 cash 목록
 	CashDao cashDao = new CashDao();
-	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(year, month+1);
+	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(loginMember.getMemberId(), year, month+1);
+	
 	
 	// Vew : 달력출력 + 일별 cash 목록 출력
 %>
@@ -53,73 +62,85 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>cashList</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+		<style>
+			tr td {
+				height: 170px;
+			}
+			th {
+		 		height: 30px;
+		 		text-align: center;
+		 	}
+		</style>
 	</head>
 	<body>
-		<div>
+		<div class="container">
 			<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
-		</div>
-		<div>
-			<%=year %>년 <%=month+1 %>월
-		</div>
-		<div>
-			<table>
-				<tr>
-					<th>일요일</th>
-					<th>월요일</th>
-					<th>화요일</th>
-					<th>수요일</th>
-					<th>목요일</th>
-					<th>금요일</th>
-					<th>토요일</th>
-				</tr>
-				<tr>
-					<!-- 달력 -->
-					<%
-						for (int i=1; i<=totalTd; i++) {
-					%>
-							<td>
-					<%
-								int date = i - beginBlank;
-								if (date > 0 && date <= lastDate) {
-					%>		
-									<%=date %>
-							</td>
-					<%
-								}
-					
-							if(i % 7 == 0 && i != totalTd) {
-					%>
-								</tr><tr> 
-					<%
-							}
-						}
-					%>
-			</table>
-		</div>
-		<div>
-			<table>
-				<tr>
-					<th>cashNo</th>
-					<th>cashDate</th>
-					<th>cashPrize</th>
-					<th>categoryNo</th>
-					<th>categoryKind</th>
-					<th>categoryName</th>
-				</tr>
-			<%
-				for(HashMap<String, Object> m : list) {
-			%>		<tr>
-						<td><%=(Integer)(m.get("cashNo")) %></td>
-						<td><%=m.get("cashDate") %></td>
-						<td><%=m.get("cashPrize") %></td>
-						<td><%=(Integer)(m.get("categoryNo")) %></td>
-						<td><%=m.get("categoryKind") %></td>
-						<td><%=m.get("categoryName") %></td>
+			<div class="mt-3">
+				<a href="<%=request.getContextPath() %>/cash/cashList.jsp?year=<%=year %>&month=<%=month-1 %>">이전달</a>
+				<%=year %>년 <%=month+1 %>월
+				<a href="<%=request.getContextPath() %>/cash/cashList.jsp?year=<%=year %>&month=<%=month+1 %>">다음달</a>
+			</div>
+			<div>
+				<%=loginMember.getMemberName() %>님, 반갑습니다.
+				<a href="<%=request.getContextPath() %>/logout.jsp">로그아웃</a>
+				<a href="<%=request.getContextPath() %>/memberOne.jsp">내 정보</a>
+			</div>
+			<div>
+				<table class="table">
+					<tr>
+						<th>일요일</th>
+						<th>월요일</th>
+						<th>화요일</th>
+						<th>수요일</th>
+						<th>목요일</th>
+						<th>금요일</th>
+						<th>토요일</th>
 					</tr>
-			<%
-				}
-			%>
-			</table>
+					<tr>
+						<!-- 달력 -->
+						<%
+							for (int i=1; i<=totalTd; i++) {
+						%>
+								<td>
+						<%
+									int date = i - beginBlank;
+									if (date > 0 && date <= lastDate) {
+						%>		
+										<div>
+											<a href="<%=request.getContextPath() %>/cash/cashDateList.jsp?year=<%=year %>&month=<%=month+1 %>&date=<%=date %>"><%=date %></a>
+										</div>
+										<div>
+											<%
+												for(HashMap<String, Object> m : list) {
+													String cashDate = (String)(m.get("cashDate"));
+													if(Integer.parseInt(cashDate.substring(8)) == date) {
+											%>
+															[<%=(String)m.get("categoryKind") %>]
+															<%=(String)m.get("categoryName") %>
+															&nbsp;
+															<%=(Long)m.get("cashPrice") %>원
+															<br>
+											<%	
+													}
+												}
+											%>
+										</div>
+								</td>
+						<%
+									}
+						
+								if(i % 7 == 0 && i != totalTd) {
+						%>
+									</tr><tr> 
+						<%
+								}
+							}
+						%>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>
