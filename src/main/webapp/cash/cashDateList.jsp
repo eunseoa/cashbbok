@@ -8,7 +8,7 @@
 	request.setCharacterEncoding("utf-8");
 
 	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/member/loginForm.jsp");
 		return;
 	}
 	
@@ -33,8 +33,6 @@
 	ArrayList<Category> categoryList = categoryDao.selectCategoryList();
 	CashDao cashDao = new CashDao();
 	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByDate(loginMember.getMemberId(), year, month, date);
-	
-
 	
 	// View
 %>
@@ -106,17 +104,17 @@
 				<%
 					for(HashMap<String, Object> m : list) {
 				%>
-							<td>[<%=(String)(m.get("categoryKind")) %>]</td>
-							<td><%=(String)(m.get("categoryName")) %></td>
-							<td><%=(Long)(m.get("cashPrice")) %>원</td>
-							<td><%=(String)(m.get("cashMemo")) %></td>
-							<td>
-								<a href="<%=request.getContextPath() %>/cash/updateCashForm.jsp?year=<%=year %>%month=<%=month %>&date=<%=date %>">수정</a>
-							</td>
-							<td>
-								<a href="<%=request.getContextPath() %>/cash/deleteCashForm.jsp?year=<%=year %>%month=<%=month %>&date=<%=date %>">삭제</a>
-							</td>
-							</tr><tr>
+						<td>[<%=(String)(m.get("categoryKind")) %>]</td>
+						<td><%=(String)(m.get("categoryName")) %></td>
+						<td><%=(Long)(m.get("cashPrice")) %>원</td>
+						<td><%=(String)(m.get("cashMemo")) %></td>
+						<td>
+							<a href="<%=request.getContextPath() %>/cash/updateCashForm.jsp?year=<%=year %>%month=<%=month %>&date=<%=date %>">수정</a>
+						</td>
+						<td>
+							<a href="<%=request.getContextPath() %>/cash/deleteCashForm.jsp?year=<%=year %>%month=<%=month %>&date=<%=date %>">삭제</a>
+						</td>
+						</tr><tr>
 				<%
 					}
 				%>

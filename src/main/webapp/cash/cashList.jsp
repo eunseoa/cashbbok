@@ -6,7 +6,7 @@
 	// Controller : session, rquest
 	request.setCharacterEncoding("utf-8");
 	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/member/loginForm.jsp");
 		return;
 	}
 	
@@ -85,8 +85,8 @@
 			</div>
 			<div>
 				<%=loginMember.getMemberName() %>님, 반갑습니다.
-				<a href="<%=request.getContextPath() %>/logout.jsp">로그아웃</a>
-				<a href="<%=request.getContextPath() %>/memberOne.jsp">내 정보</a>
+				<a href="<%=request.getContextPath() %>/member/logout.jsp">로그아웃</a>
+				<a href="<%=request.getContextPath() %>/member/memberOne.jsp">내 정보</a>
 			</div>
 			<div>
 				<table class="table">

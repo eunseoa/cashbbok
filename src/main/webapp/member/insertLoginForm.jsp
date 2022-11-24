@@ -9,30 +9,26 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>loginForm</title>
+		<title>Insert title here</title>
 	</head>
 	<body>
 		<div>
-			<form action="<%=request.getContextPath() %>/loginAction.jsp" method="post">
+			<form action="<%=request.getContextPath() %>/member/insertLoginAction.jsp" method="post">
 				<table>
 					<tr>
-						<th>아이디</th>
-						<td>
-							<input type="text" name="memberId">
-						</td>
+						<td>아이디</td>
+						<td><input type="text" name="memberId"></td>
 					</tr>
 					<tr>
-						<th>비밀번호</th>
-						<td>
-							<input type="password" name="memberPw">
-						</td>
+						<td>비밀번호</td>
+						<td><input type="password" name="memberPw"></td>
 					</tr>
 					<tr>
-						<td colspan="2">
-							<button type="submit">로그인</button>
-						</td>
+						<td>이름</td>
+						<td><input type="text" name="memberName"></td>
 					</tr>
 				</table>
+				<button type="submit">회원가입</button>
 			</form>
 		</div>
 	</body>

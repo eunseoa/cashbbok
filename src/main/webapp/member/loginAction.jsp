@@ -18,7 +18,7 @@
 	Member resultMember = memberDao.login(paramMember);
 	
 	
-	String redirectUrl = "/loginForm.jsp";
+	String redirectUrl = "/member/loginForm.jsp";
 	
 	if (resultMember != null) {
 		session.setAttribute("loginMember", resultMember); // session안에 로그인아이디, 이름 저장

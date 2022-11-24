@@ -14,6 +14,7 @@ public class CashDao {
 	// cashDateList.jsp에서 호출됨
 	public ArrayList<HashMap<String, Object>> selectCashListByDate(String memberId, int year, int month, int date) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		// db 연결 메소드
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		String sql = "SELECT c.cash_no cashNo, c.cash_date cashDate, c.cash_price cashPrice, c.cash_memo cashMemo, ct.category_kind categoryKind, ct.category_name categoryName FROM cash c INNER JOIN category ct ON c.category_no = ct.category_no WHERE c.member_id = ? AND YEAR(c.cash_date) = ? AND MONTH(c.cash_date) = ? AND DAY(c.cash_date) = ? ORDER BY c.cash_date ASC, ct.category_kind ASC";
@@ -34,9 +35,7 @@ public class CashDao {
 			list.add(m);
 		}
 		
-		rs.close();
-		stmt.close();
-		conn.close();
+		dbUtil.close(rs, stmt, conn);
 		
 		return list;
 	}
@@ -44,6 +43,7 @@ public class CashDao {
 	// cashList.jsp에서 호출됨
 	public ArrayList<HashMap<String, Object>> selectCashListByMonth(String memberId, int year, int month) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		// db 연결 메소드
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		String sql = "SELECT c.cash_no cashNo, c.cash_date cashDate, c.cash_price cashPrice, ct.category_kind categoryKind, ct.category_name categoryName FROM cash c INNER JOIN category ct ON c.category_no = ct.category_no WHERE c.member_id = ? AND YEAR(c.cash_date) = ? AND MONTH(c.cash_date) = ? ORDER BY c.cash_date ASC, ct.category_kind ASC";
@@ -62,9 +62,7 @@ public class CashDao {
 			list.add(m);
 		}
 		
-		rs.close();
-		stmt.close();
-		conn.close();
+		dbUtil.close(rs, stmt, conn);
 		
 		return list;
 	}
@@ -72,6 +70,7 @@ public class CashDao {
 	// cashDateList.jsp에서 호출됨
 	public int insertCash(Cash cash) throws Exception {
 			int resultRow = 0;
+			// db 연결 메소드
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
 			// 소비, 지출내역 추가 
@@ -91,21 +90,24 @@ public class CashDao {
 				resultRow = 0;
 			}
 			
+			
 			return resultRow;
 		}
 	
 	// update
-		public Cash upateDept(Cash cash) throws Exception {
+		public Cash updateCash(Cash cash) throws Exception {
 			Cash resultCash = null;
+			// db 연결 메소드
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
-			String sql = "UPDATE cash SET category_no = ?, cash_price = ?, cash_memo = ?, updatedate = CURDATE() WHERE member_id = ?, cash_date = ?";
+			// cash 내역 수정
+			String sql = "UPDATE cash SET category_no = ?, cash_price = ?, cash_memo = ?, updatedate = CURDATE() WHERE member_id = ? AND cash_no = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, cash.getCategoryNo());
 			stmt.setLong(2, cash.getCashPrice());
 			stmt.setString(3, cash.getCashMemo());
 			stmt.setString(4, cash.getMemberId());
-			stmt.setString(6, cash.getCashDate());
+			stmt.setInt(6, cash.getCashNo());
 			int row = stmt.executeUpdate();
 			
 			if(row == 1) {
@@ -118,4 +120,5 @@ public class CashDao {
 			
 			return resultCash;
 		}
+		
 }

@@ -3,7 +3,7 @@
 <%
 	
 	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/member/loginForm.jsp");
 		return;
 	}
 
@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<div>
-			<form action="<%=request.getContextPath() %>/updateMemberAction.jsp" method="post">
+			<form action="<%=request.getContextPath() %>/member/updateMemberAction.jsp" method="post">
 				<table>
 					<tr>
 						<td><input type="text" name="memberId" value="<%=loginMember.getMemberId() %>" readonly="readonly"></td>
@@ -29,6 +29,7 @@
 						<td><input type="password" name="memberPw"></td>
 					</tr>
 				</table>
+				<button type="submit">수정</button>
 			</form>
 		</div>
 	</body>
