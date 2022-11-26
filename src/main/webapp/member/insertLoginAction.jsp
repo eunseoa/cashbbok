@@ -8,7 +8,7 @@
 	if(request.getParameter("memberId") == null || request.getParameter("memberId").equals("")
 		|| request.getParameter("memberPw") == null || request.getParameter("memberPw").equals("")
 		|| request.getParameter("memberName") == null || request.getParameter("memberName").equals("")) {
-		response.sendRedirect(request.getContextPath()+"/insertLoginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/member/insertLoginForm.jsp");
 		return;
 	}
 
@@ -23,9 +23,10 @@
 	
 	// Model 호출
 	MemberDao memberDao = new MemberDao();
+	// 아이디가 중복이면
 	if(memberDao.selectMemberIdCk(memberId)) {
 		System.out.println("중복아이디");
-		response.sendRedirect(request.getContextPath()+"/insetMemberForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/member/insertLoginForm.jsp");
 		return;
 	}
 	

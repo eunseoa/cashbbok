@@ -6,7 +6,7 @@
 	// Controller : session, rquest
 	request.setCharacterEncoding("utf-8");
 	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/member/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
 	
@@ -76,6 +76,11 @@
 		</style>
 	</head>
 	<body>
+		<!-- 공지(5개)목록 페이징 -->
+		
+		<div>
+			
+		</div>
 		<div class="container">
 			<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
 			<div class="mt-3">
@@ -85,7 +90,14 @@
 			</div>
 			<div>
 				<%=loginMember.getMemberName() %>님, 반갑습니다.
-				<a href="<%=request.getContextPath() %>/member/logout.jsp">로그아웃</a>
+				<a href="<%=request.getContextPath() %>//logout.jsp">로그아웃</a>
+				<%
+					if(loginMember.getMemberLevel() > 0) {
+				%>
+						<a href="<%=request.getContextPath() %>/admin/adminMain.jsp">관리자 페이지</a>
+				<%
+					} 
+				%>
 				<a href="<%=request.getContextPath() %>/member/memberOne.jsp">내 정보</a>
 			</div>
 			<div>

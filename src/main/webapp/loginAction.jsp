@@ -17,12 +17,19 @@
 	MemberDao memberDao = new MemberDao();
 	Member resultMember = memberDao.login(paramMember);
 	
+	// 로그인한 사용자의 level
+	int memberLevel = resultMember.getMemberLevel();
+	System.out.println(memberLevel);
 	
-	String redirectUrl = "/member/loginForm.jsp";
+	String redirectUrl = "/loginForm.jsp";
 	
 	if (resultMember != null) {
 		session.setAttribute("loginMember", resultMember); // session안에 로그인아이디, 이름 저장
-		redirectUrl = "/cash/cashList.jsp";
+		if(memberLevel == 1) {
+			redirectUrl = "/admin/adminMain.jsp"; // 1이면 관리자페이지로
+		} else {
+			redirectUrl = "/cash/cashList.jsp"; // 0이면 가계부list로
+		}
 	}
 	
 	response.sendRedirect(request.getContextPath()+redirectUrl);
