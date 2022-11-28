@@ -26,15 +26,15 @@
 	int cashNo = Integer.parseInt(request.getParameter("cashNo"));
 	System.out.println(cashNo);
 	
-	// Model
+	// Model 호출
 	Cash cash = new Cash();
 	cash.setMemberId(memberId);
 	cash.setCashNo(cashNo);
 	
 	CashDao cashDao = new CashDao();
-	cashDao.deleteCash(cash);
+	int row = cashDao.deleteCash(cash);
 	
-	if(cashDao.deleteCash(cash) == 1) {
+	if(row == 1) {
 		System.out.println("삭제성공");
 		response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp?year=" + year + "&month=" + month + "&date=" + date);
 		return;

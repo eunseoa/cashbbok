@@ -76,10 +76,12 @@
 		</style>
 	</head>
 	<body>
-		<!-- 공지(5개)목록 페이징 -->
-		
 		<div>
-			
+		<%
+			if(loginMember.getMemberLevel() == 1) {
+				// css 수정하고 세팅
+			}
+		%>
 		</div>
 		<div class="container">
 			<!-- 로그인 정보(세션 loginMember 변수) 출력 -->

@@ -7,22 +7,50 @@ import util.DBUtil;
 import vo.Notice;
 
 public class NoticeDao {
+	// 공지 등록
 	public int insertNotice(Notice notice) throws Exception {
+		int row = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "INSERT notice(notice_memo, updatedate, createdate) VALUES(?, NOW(), NOW())";
+		
 		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT notice(notice_memo, updatedate, creatdate) VALUES(?, NOW(), NOW())";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		return 0;
+		conn = dbUtil.getConnection();
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, notice.getNoticeMemo());
+		row = stmt.executeUpdate();
+		if(row == 1) {
+			row = 1;
+		}
+		
+		dbUtil.close(null, stmt, conn);
+		
+		return row;
 	}
 	
+	// 공지 수정
 	public int updateNotice(Notice notice) throws Exception {
-		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection();
+		int row = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
 		String sql = "UPDATE notice SET notice_memo = ? WHERE notice_no = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		DBUtil dbUtil = new DBUtil();
+		conn = dbUtil.getConnection();
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, notice.getNoticeMemo());
+		stmt.setInt(2, notice.getNoticeNo());
+		row = stmt.executeUpdate();
+		if(row == 1) {
+			row = 1;
+		}
+		
+		dbUtil.close(null, stmt, conn);
+		
 		return 0;
 	}
 	
+	// 공지 삭제
 	public int deleteNotice(Notice notice) throws Exception {
 		String sql = "DELETE FROM notice WHERE notice_no = ?";
 		return 0;
@@ -64,5 +92,4 @@ public class NoticeDao {
 		return list;
 	}
 	
-	// 
 }

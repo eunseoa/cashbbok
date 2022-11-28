@@ -14,6 +14,7 @@
 	String memberName = request.getParameter("memberName");
 	String memberPw = request.getParameter("memberPw");
 	
+	// Model 호출
 	Member paramMember = new Member();
 	paramMember.setMemberId(memberId);
 	paramMember.setMemberName(memberName);

@@ -123,43 +123,43 @@ public class CashDao {
 		return resultCash;
 	}
 
-		// update
-		public int updateCash(Cash cash) throws Exception {
-			int row = 0;
-			// db 연결 메소드
-			DBUtil dbUtil = new DBUtil();
-			Connection conn = dbUtil.getConnection();
-			// cash 내역 수정
-			String sql = "UPDATE cash SET category_no = ?, cash_price = ?, cash_memo = ?, updatedate = CURDATE() WHERE member_id = ? AND cash_no = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, cash.getCategoryNo());
-			stmt.setLong(2, cash.getCashPrice());
-			stmt.setString(3, cash.getCashMemo());
-			stmt.setString(4, cash.getMemberId());
-			stmt.setInt(5, cash.getCashNo());
-			row = stmt.executeUpdate();
-			
-			dbUtil.close(null, stmt, conn);
-			
-			return row;
-		}
+	// update
+	public int updateCash(Cash cash) throws Exception {
+		int row = 0;
+		// db 연결 메소드
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// cash 내역 수정
+		String sql = "UPDATE cash SET category_no = ?, cash_price = ?, cash_memo = ?, updatedate = CURDATE() WHERE member_id = ? AND cash_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, cash.getCategoryNo());
+		stmt.setLong(2, cash.getCashPrice());
+		stmt.setString(3, cash.getCashMemo());
+		stmt.setString(4, cash.getMemberId());
+		stmt.setInt(5, cash.getCashNo());
+		row = stmt.executeUpdate();
 		
-		// delete
-		public int deleteCash(Cash cash) throws Exception {
-			int deleteRow = 0;
-			// db 연결 메소드
-			DBUtil dbUtil = new DBUtil();
-			Connection conn = dbUtil.getConnection();
-			// cash 내역 삭제
-			String sql = "DELETE FROM cash WHERE cash_no = ? AND member_id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, cash.getCashNo());
-			stmt.setString(2, cash.getMemberId());
-			deleteRow = stmt.executeUpdate();
-			
-			dbUtil.close(null, stmt, conn);
-			
-			return deleteRow;
-		}
+		dbUtil.close(null, stmt, conn);
+		
+		return row;
+	}
+		
+	// delete
+	public int deleteCash(Cash cash) throws Exception {
+		int deleteRow = 0;
+		// db 연결 메소드
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// cash 내역 삭제
+		String sql = "DELETE FROM cash WHERE cash_no = ? AND member_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, cash.getCashNo());
+		stmt.setString(2, cash.getMemberId());
+		deleteRow = stmt.executeUpdate();
+		
+		dbUtil.close(null, stmt, conn);
+		
+		return deleteRow;
+	}
 		
 }

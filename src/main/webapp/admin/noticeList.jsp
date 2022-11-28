@@ -23,8 +23,12 @@
 	NoticeDao noticeDao = new NoticeDao();
 	ArrayList<Notice> list = noticeDao.selectNoticeListByPage(beginRow, rowPerPage);
 	
+	// 마지막페이지
 	int noticeCnt = noticeDao.selectNoticeCount();
 	int lastPage = noticeCnt / rowPerPage;
+	if(lastPage % rowPerPage != 0) {
+		lastPage++;
+	}
 	
 	
 	// View
@@ -37,16 +41,11 @@
 	</head>
 	<body>
 		<div>
-			<ul>
-				<li><a href="<%=request.getContextPath() %>/admin/noticeList.jsp">공지관리</a></li>
-				<li><a href="<%=request.getContextPath() %>/admin/categoryList.jsp">카테고리관리</a></li>
-				<li><a href="<%=request.getContextPath() %>/admin/memberList.jsp">멤버관리</a></li> <!-- 목록, 레벨수정, 강제탈퇴-->
-			</ul>
-		</div>
+			<jsp:include page="/admin/adminMain.jsp"></jsp:include>
+   		</div>
 		<div>
 			<!-- noticeList contents -->
 			<h1>공지</h1>
-			<a href="">공지입력</a>
 			<table>
 				<tr>
 					<th>공지내용</th>
@@ -60,13 +59,58 @@
 				%>
 						<td><%=n.getNoticeMemo() %></td>
 						<td><%=n.getCreatedate() %></td>
-						<td>수정</td>
+						<td><a href="<%=request.getContextPath() %>/admin/updateNoticeForm.jsp?noticeNo=<%=n.getNoticeNo() %>"></a></td>
 						<td>삭제</td>
 						</tr>
 				<%
 					}
 				%>
+				<tr>
+					<td colspan="4">
+						<%
+							if(currentPage != 0) {
+						%>
+								<a href="<%=request.getContextPath() %>/admin/noticeList.jsp?currentPage=1">처음</a>
+						<%
+							}
+							
+							if (currentPage > 1) {
+						%>
+								<a href="<%=request.getContextPath() %>/admin/noticeList.jsp?currentPage=<%=currentPage - 1 %>">이전</a>
+						<%
+							}
+							
+							if (currentPage < lastPage) {
+						%>
+								<a href="<%=request.getContextPath() %>/admin/noticeList.jsp?currentPage=<%=currentPage + 1 %>">다음</a>
+						<%
+							}
+							
+							if (lastPage != 0) {
+						%>
+								<a href="<%=request.getContextPath() %>/admin/noticeList.jsp?currentPage=<%=lastPage %>">마지막</a>
+						<%
+							}
+						%>
+					
+					</td>
+				</tr>
 			</table>
 		</div>
+		<form action="<%=request.getContextPath() %>/admin/insertNoticeAction.jsp" method="post">
+			<div>
+				<table>
+					<tr>
+						<th>내용</th>
+					</tr>
+					<tr>
+						<td>
+							<textarea name="noticeMemo"></textarea>
+						</td>
+					</tr>
+				</table>
+				<button type="submit">등록</button>
+			</div>
+		</form>
 	</body>
 </html>

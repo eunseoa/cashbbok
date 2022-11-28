@@ -16,14 +16,15 @@
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
-	// Model
+	// Model 호출
 	int rowPerPage = 5;
 	int beginRow = (currentPage - 1) * rowPerPage;
 	
 	NoticeDao noticeDao = new NoticeDao();
 	ArrayList<Notice> list = noticeDao.selectNoticeListByPage(beginRow, rowPerPage);
-	int lastPage = noticeDao.selectNoticeCount() / rowPerPage;
 	
+	// 마지막페이지
+	int lastPage = noticeDao.selectNoticeCount() / rowPerPage;
 	if(lastPage % rowPerPage != 0) {
 		lastPage++;
 	}

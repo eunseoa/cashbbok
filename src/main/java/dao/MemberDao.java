@@ -160,9 +160,25 @@ public class MemberDao {
 	
 	// 멤버수
 	public int selectMembetCount() throws Exception {
-		return 0;
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) cnt FROM member";
+		
+		DBUtil dbUtil = new DBUtil();
+		conn = dbUtil.getConnection();
+		stmt = conn.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			count = rs.getInt("cnt");
+		}
+		
+		dbUtil.close(rs, stmt, conn);
+		
+		return count;
 	}
-	
+
 	// 관리자가 멤버 레벨 수정 
 	public int updateMemberLevel(Member member) throws Exception {
 		int resultRow = 0;
