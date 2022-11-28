@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>
 <%@ page import="vo.*" %>
@@ -8,7 +7,7 @@
 	request.setCharacterEncoding("utf-8");
 
 	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/member/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
 	
@@ -28,9 +27,11 @@
 	int date = Integer.parseInt(request.getParameter("date"));
 	
 	// Model 호출
-	// 카테고리 목록출력
+	// 카테고리 목록 출력
 	CategoryDao categoryDao = new CategoryDao();
 	ArrayList<Category> categoryList = categoryDao.selectCategoryList();
+	
+	// cash 목록 출력
 	CashDao cashDao = new CashDao();
 	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByDate(loginMember.getMemberId(), year, month, date);
 	
@@ -49,11 +50,16 @@
 		</div>
 		<!--  -->
 		<form action="<%=request.getContextPath() %>/cash/insertCashAction.jsp" method="post">
-			<input type="hidden" name="memberId" value="<%=loginMember.getMemberId() %>">
 			<input type="hidden" name="year" value="<%=year %>">
 			<input type="hidden" name="month" value="<%=month %>">
 			<input type="hidden" name="date" value="<%=date %>">
 			<table>
+				<tr>
+					<td>cashDate</td>
+					<td>
+						<input type="text" name="cashDate" value="<%=year %>-<%=month %>-<%=date %>" readonly="readonly">
+					</td>
+				</tr>
 				<tr>
 					<td>카테고리</td>
 					<td>
@@ -68,12 +74,6 @@
 								}
 							%>
 						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>cashDate</td>
-					<td>
-						<input type="text" name="cashDate" value="<%=year %>-<%=month %>-<%=date %>" readonly="readonly">
 					</td>
 				</tr>
 				<tr>
@@ -103,19 +103,29 @@
 			<tr>
 				<%
 					for(HashMap<String, Object> m : list) {
+						
+						String cashDate = (String)m.get("cashDate");
+						System.out.println(cashDate);
+						if(Integer.parseInt(cashDate.substring(8)) == date) {
+							int cashNo = (Integer)(m.get("cashNo"));
+							System.out.println(cashNo);
+							int categoryNo = (Integer)(m.get("categoryNo"));
+							System.out.println(categoryNo);
+				
 				%>
-						<td>[<%=(String)(m.get("categoryKind")) %>]</td>
-						<td><%=(String)(m.get("categoryName")) %></td>
-						<td><%=(Long)(m.get("cashPrice")) %>원</td>
-						<td><%=(String)(m.get("cashMemo")) %></td>
-						<td>
-							<a href="<%=request.getContextPath() %>/cash/updateCashForm.jsp?year=<%=year %>%month=<%=month %>&date=<%=date %>">수정</a>
-						</td>
-						<td>
-							<a href="<%=request.getContextPath() %>/cash/deleteCashForm.jsp?year=<%=year %>%month=<%=month %>&date=<%=date %>">삭제</a>
-						</td>
-						</tr><tr>
+							<td>[<%=(String)(m.get("categoryKind")) %>]</td>
+							<td><%=(String)(m.get("categoryName")) %></td>
+							<td><%=(Long)(m.get("cashPrice")) %>원</td>
+							<td><%=(String)(m.get("cashMemo")) %></td>
+							<td>
+								<a href="<%=request.getContextPath() %>/cash/updateCashForm.jsp?cashNo=<%=cashNo %>&categoryNo=<%=categoryNo %>&year=<%=year %>&month=<%=month %>&date=<%=date %>">수정</a>
+							</td>
+							<td>
+								<a href="<%=request.getContextPath() %>/cash/deleteCashAction.jsp?cashNo=<%=cashNo %>&categoryNo=<%=categoryNo %>&year=<%=year %>&month=<%=month %>&date=<%=date %>">삭제</a>
+							</td>
+							</tr><tr>
 				<%
+						}
 					}
 				%>
 		</table>

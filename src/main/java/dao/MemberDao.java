@@ -165,6 +165,18 @@ public class MemberDao {
 	
 	// 관리자가 멤버 레벨 수정 
 	public int updateMemberLevel(Member member) throws Exception {
-		return 0;
+		int resultRow = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "UPDATE member SET member_level = ? WHERE member_no = ?";
+		
+		DBUtil dbUtil = new DBUtil();
+		conn = dbUtil.getConnection();
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, member.getMemberLevel());
+		stmt.setInt(2, member.getMemberNo());
+		resultRow = stmt.executeUpdate();
+		
+		return resultRow;
 	}
 }

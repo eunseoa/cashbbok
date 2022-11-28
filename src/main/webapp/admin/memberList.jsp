@@ -52,7 +52,6 @@
 					<th>이름</th>
 					<th>마지막수정일자</th>
 					<th>생성일자</th>
-					<th>레벨수정</th>
 					<th>깅제탈퇴</th>
 				</tr>
 				<tr>
@@ -61,23 +60,33 @@
 				%>
 						<td><%=m.getMemberNo() %></td>
 						<td><%=m.getMemberId() %></td>
-						<%
-							if(m.getMemberLevel() == 1) {
-						%>
-								<td>관리자</td>
-						<%
-							} else {
-						%>
-								<td>일반회원</td>
-						<%
-							}
-						%>
+						<td>
+							<form action="<%=request.getContextPath() %>/admin/updateMemberLevelByAdmin.jsp?memberLevel=<%=m.getMemberLevel() %>&memberNo=<%=m.getMemberNo() %>" method="post">
+								<%
+									if(m.getMemberLevel() == 1) {
+								%>
+										<select name="changeLevel">
+											<option value="1" selected>관리자</option>
+											<option value="0">일반회원</option>
+										</select>
+								<%
+									} else {
+								%>
+										<select name="changeLevel">
+											<option value="1">관리자</option>
+											<option value="0" selected>일반회원</option>
+										</select>
+								<%
+									}
+								%>
+								<button type="submit">수정</button>
+							</form>
+						</td>
 						<td><%=m.getMemberName() %></td>
 						<td><%=m.getUpdatedate() %></td>
 						<td><%=m.getCreatedate() %></td>
-						<td>수정</td>
 						<td>
-							<a href="<%=request.getContextPath() %>/admin/deleteMemberByAdmin.jsp">강제탈퇴</a>
+							<a href="<%=request.getContextPath() %>/admin/deleteMemberByAdmin.jsp?memberNo=<%=m.getMemberNo() %>">강제탈퇴</a>
 						</td>
 						</tr><tr>
 				<%

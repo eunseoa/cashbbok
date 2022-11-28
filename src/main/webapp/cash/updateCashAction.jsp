@@ -5,41 +5,39 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 
-	// 비로그인시 접근금지
+	// 비로그인 접근금지
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null) {
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
 	
-	// cashNo 안넘어오면
-	if(request.getParameter("cashNo") == null || request.getParameter("cashNo").equals("")) {
-		response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp");
-		return;
-	}
-	
-	// 값 받아오기
-	String memberId = loginMember.getMemberId();
 	int year = Integer.parseInt(request.getParameter("year"));
 	int month = Integer.parseInt(request.getParameter("month"));
 	int date = Integer.parseInt(request.getParameter("date"));
 	int cashNo = Integer.parseInt(request.getParameter("cashNo"));
-	System.out.println(cashNo);
+	int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
+	Long cashPrice = Long.parseLong(request.getParameter("cashPrice"));
+	String cashMemo = request.getParameter("cashMemo");
+	String memberId = loginMember.getMemberId();
 	
-	// Model
+	// Model 호출
 	Cash cash = new Cash();
-	cash.setMemberId(memberId);
+	cash.setCategoryNo(categoryNo);
+	cash.setCashPrice(cashPrice);
+	cash.setCashMemo(cashMemo);
 	cash.setCashNo(cashNo);
+	cash.setMemberId(memberId);
 	
 	CashDao cashDao = new CashDao();
-	cashDao.deleteCash(cash);
+	int row = cashDao.updateCash(cash);
 	
-	if(cashDao.deleteCash(cash) == 1) {
-		System.out.println("삭제성공");
+	if(row == 1) {
+		System.out.println("수정성공");
 		response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp?year=" + year + "&month=" + month + "&date=" + date);
 		return;
 	} else {
-		System.out.println("삭제실패");
+		System.out.println("수정실패");
 		response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp?year=" + year + "&month=" + month + "&date=" + date);
 		return;
 	}

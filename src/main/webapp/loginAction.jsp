@@ -26,7 +26,7 @@
 	if (resultMember != null) {
 		session.setAttribute("loginMember", resultMember); // session안에 로그인아이디, 이름 저장
 		if(memberLevel == 1) {
-			redirectUrl = "/admin/adminMain.jsp"; // 1이면 관리자페이지로
+			redirectUrl = "/cash/cashList.jsp"; // 1이면 관리자페이지로
 		} else {
 			redirectUrl = "/cash/cashList.jsp"; // 0이면 가계부list로
 		}
