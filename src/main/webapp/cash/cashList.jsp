@@ -96,9 +96,16 @@
 				<%
 					if(loginMember.getMemberLevel() > 0) {
 				%>
-						<a href="<%=request.getContextPath() %>/admin/adminMain.jsp">관리자 페이지</a>
+						<a href="<%=request.getContextPath() %>/inc/adminMain.jsp">관리자 페이지</a>
 				<%
 					} 
+				%>
+				<%
+					if(loginMember.getMemberLevel() < 1) {
+				%>
+						<a href="<%=request.getContextPath() %>/help/helpMain.jsp">고객센터</a>
+				<%
+					}
 				%>
 				<a href="<%=request.getContextPath() %>/member/memberOne.jsp">내 정보</a>
 			</div>

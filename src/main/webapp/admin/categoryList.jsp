@@ -27,7 +27,7 @@
 	</head>
 	<body>
 		<div>
-			<jsp:include page="/admin/adminMain.jsp"></jsp:include>
+			<jsp:include page="/inc/adminMain.jsp"></jsp:include>
    		</div>
 		<div>
 			<!-- categoryList contents -->
