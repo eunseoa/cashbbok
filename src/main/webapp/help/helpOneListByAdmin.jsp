@@ -12,6 +12,12 @@
 		return;
 	}
 	
+	if(request.getParameter("helpNo") == null) {
+		System.out.println(request.getParameter("helpNo"));
+	} else {
+		System.out.println(request.getParameter("helpNo"));
+	}
+	
 	int helpNo = Integer.parseInt(request.getParameter("helpNo"));
 	
 	// Model 호출
@@ -20,6 +26,9 @@
 	
 	HelpDao helpDao = new HelpDao();
 	Help helpOne = helpDao.selectHelpOne(helpNo);
+	
+	CommentDao commentDao = new CommentDao();
+	ArrayList<HashMap<String, Object>> commentList = commentDao.selectCommentList(helpNo);
 %>
 <!DOCTYPE html>
 <html>
@@ -53,7 +62,39 @@
 			</table>
 		</div>
 		<div>
-			<jsp:include page="/comment/commentList.jsp"></jsp:include>
-   		</div>
+			<table>
+				<%
+					for(HashMap<String, Object> c : commentList) {
+						System.out.println((c.get("commentMemo")));
+				%>
+						<tr>
+				<%
+						if(c.get("commentMemo") == null) {
+				%>
+							<td><span>답변 대기</span></td>
+				<%
+						} else {
+				%>
+							<td><%=c.get("commentMemo") %></td>
+							<td><%=c.get("memberId") %></td>
+							<td><%=c.get("createdate") %></td>
+							<%
+								if(loginMember.getMemberLevel() == 1) {
+							%>
+									<!-- 수정 삭제 비동기식으로 바꿀예정 -->
+									<td><a href="<%=request.getContextPath() %>/comment/updateCommentForm.jsp?helpNo=<%=helpNo %>&commentNo=<%=c.get("commentNo") %>">수정</a></td>
+									<td><a href="<%=request.getContextPath() %>/comment/deleteComment.jsp?helpNo=<%=helpNo %>&commentNo=<%=c.get("commentNo") %>">삭제</a></td>
+							<%
+								}
+							%>
+				<%
+						}
+				%>
+						</tr>
+				<%
+					}
+				%>
+			</table>
+		</div>
 	</body>
 </html>

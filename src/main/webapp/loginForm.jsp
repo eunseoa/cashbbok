@@ -38,8 +38,8 @@
 		<title>loginForm</title>
 	</head>
 	<body>
-		<div>
-			<div>
+		<div id="_next">
+			<div class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-2b2w37">
 				<table>
 					<tr>
 						<th>공지내용</th>

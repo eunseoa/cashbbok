@@ -40,6 +40,7 @@
 						<th>문의글</th>
 						<th>아이디</th>
 						<th>작성일자</th>
+						<th>답변현황</th>
 					</tr>
 					<tr>
 					<%
@@ -48,7 +49,18 @@
 							<td><%=m.get("helpNo") %></td>
 							<td><a href="<%=request.getContextPath() %>/help/helpOne.jsp?helpNo=<%=m.get("helpNo") %>"><%=m.get("helpTitle") %></a></td>
 							<td><%=m.get("memberId") %></td>
-							<td><%=m.get("createdate") %></td>
+							<td><%=m.get("helpCreatedate") %></td>
+							<%
+								if(m.get("commentCreatedate") == null) {
+							%>
+									<td>답변대기</td>
+							<%
+								} else {
+							%>
+									<td>답변완료</td>
+							<%
+								}
+							%>
 							</tr><tr>
 					<%
 						}

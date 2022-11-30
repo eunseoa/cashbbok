@@ -16,7 +16,7 @@ public class HelpDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT help_no helpNo, help_title helpTitle, member_id memberId, createdate FROM help WHERE member_id = ?";
+		String sql = "SELECT h.help_no helpNo, h.help_title helpTitle, h.member_id memberId, h.createdate helpCreatedate, c.createdate commentCreatedate FROM help h LEFT OUTER JOIN comment c ON h.help_no = c.help_no WHERE h.member_id = ?";
 		
 		DBUtil dbUtil = new DBUtil();
 		conn = dbUtil.getConnection();
@@ -29,7 +29,8 @@ public class HelpDao {
 			m.put("helpNo", rs.getInt("helpNo"));
 			m.put("helpTitle", rs.getString("helpTitle"));
 			m.put("memberId", rs.getString("memberId"));
-			m.put("createdate", rs.getString("createdate"));
+			m.put("helpCreatedate", rs.getString("helpCreatedate"));
+			m.put("commentCreatedate", rs.getString("commentCreatedate"));
 			list.add(m);
 		}
 		
@@ -90,10 +91,80 @@ public class HelpDao {
 	}
 	
 	// 문의 수정
-	public Help updateHelp(Help help) throws Exception {
+	// 수정 form에 출력
+	public Help selectUpdateHelp(int helpNo) throws Exception {
 		Help resultRow = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT help_no helpNo, help_title helpTitle, help_memo helpMemo, member_id memberId, createdate FROM help WHERE help_no = ?";
+		
+		DBUtil dbUtil = new DBUtil();
+		conn = dbUtil.getConnection();
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, helpNo);
+		
+		rs = stmt.executeQuery();
+		if(rs.next()) {
+			resultRow = new Help();
+			resultRow.setHelpNo(rs.getInt("helpNo"));
+			resultRow.setHelpTitle(rs.getString("helpTitle"));
+			resultRow.setHelpMemo(rs.getString("helpMemo"));
+			resultRow.setMemberId(rs.getString("memberId"));
+			resultRow.setCreatedate(rs.getString("createdate"));
+		}
+		
+		dbUtil.close(rs, stmt, conn);
 		
 		return resultRow;
+	}
+	
+	// 수정 메소드
+	public int updateHelp(Help help) throws Exception {
+		int row = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "UPDATE help SET help_title = ?, help_memo = ?, updatedate = NOW() WHERE help_no = ? AND member_id = ?";
+		
+		DBUtil dbUtil = new DBUtil();
+		conn = dbUtil.getConnection();
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, help.getHelpTitle());
+		stmt.setString(2, help.getHelpMemo());
+		stmt.setInt(3, help.getHelpNo());
+		stmt.setString(4, help.getMemberId());
+		
+		row = stmt.executeUpdate();
+		if(row == 1) {
+			row = 1;
+		}
+		
+		dbUtil.close(null, stmt, conn);
+		
+		return row;
+	}
+	
+	// 문의 삭제
+	public int deleteHelp(String memberId, int helpNo) throws Exception {
+		int row = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "DELETE FROM help WHERE member_id = ? AND help_no = ?";
+		
+		DBUtil dbUtil = new DBUtil();
+		conn = dbUtil.getConnection();
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, memberId);
+		stmt.setInt(2, helpNo);
+		
+		row = stmt.executeUpdate();
+		if(row == 1) {
+			row = 1;
+		}
+		
+		dbUtil.close(null, stmt, conn);
+		
+		return row;
 	}
 	
 	// 관리자
@@ -103,7 +174,7 @@ public class HelpDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT help_no helpNo, help_title helpTitle, member_id memberId, createdate FROM help LIMIT ?, ?";
+		String sql = "SELECT h.help_no helpNo, h.help_title helpTitle, h.member_id memberId, h.createdate helpCreatedate, c.createdate commentCreatedate FROM help h LEFT OUTER JOIN comment c ON h.help_no = c.help_no LIMIT ?, ?";
 		
 		DBUtil dbUtil = new DBUtil();
 		conn = dbUtil.getConnection();
@@ -117,7 +188,8 @@ public class HelpDao {
 			m.put("helpNo", rs.getInt("helpNo"));
 			m.put("helpTitle", rs.getString("helpTitle"));
 			m.put("memberId", rs.getString("memberId"));
-			m.put("createdate", rs.getString("createdate"));
+			m.put("helpCreatedate", rs.getString("helpCreatedate"));
+			m.put("commentCreatedate", rs.getString("commentCreatedate"));
 			list.add(m);
 		}
 		
