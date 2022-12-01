@@ -5,8 +5,17 @@
 <%	
 	// controller
 	request.setCharacterEncoding("utf-8");
+
 	String memberId = request.getParameter("memberId");
 	String memberPw = request.getParameter("memberPw");
+	
+	// 미입력시
+	if(request.getParameter("memberId") == null || request.getParameter("memberId").equals("")
+		|| request.getParameter("memberPw") == null || request.getParameter("memberPw").equals("")) {
+			System.out.println("미입력");
+			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+			return;
+		}
 	
 	Member paramMember = new Member(); // 모델 호출시 매개값
 	paramMember.setMemberId(memberId);
