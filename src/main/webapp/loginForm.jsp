@@ -34,21 +34,23 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-		<link rel="icon" type="image/png" href="/assets/img/favicon.png">
-		<title>로그인</title>
+		<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+		<title>
+			Sign in
+		</title>
 		<!--     Fonts and icons     -->
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 		<!-- Nucleo Icons -->
-		<link href="assets/css/nucleo-icons.css" rel="stylesheet">
-		<link href="assets/css/nucleo-svg.css" rel="stylesheet">
+		<link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+		<link href="assets/css/nucleo-svg.css" rel="stylesheet" />
 		<!-- Font Awesome Icons -->
 		<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-		<link href="assets/css/nucleo-svg.css" rel="stylesheet">
+		<link href="assets/css/nucleo-svg.css" rel="stylesheet" />
 		<!-- CSS Files -->
-		<link id="pagestyle" href="assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet">
+		<link id="pagestyle" href="assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 	</head>
 	<body>
 		<main class="main-content  mt-0">
@@ -60,7 +62,7 @@
 								<div class="card card-plain">
 									<div class="card-header pb-0 text-start">
 										<h4 class="font-weight-bolder">Sign In</h4>
-										<p class="mb-0">Enter your email and password to sign in</p>
+										<p class="mb-0">Enter your id and password to sign in</p>
 									</div>
 									<div class="card-body">
 										<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">

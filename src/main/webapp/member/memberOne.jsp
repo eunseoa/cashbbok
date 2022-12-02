@@ -7,7 +7,7 @@
 	request.setCharacterEncoding("utf-8");
 	
 	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/member/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
 	
