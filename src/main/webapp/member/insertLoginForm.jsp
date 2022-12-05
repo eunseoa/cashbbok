@@ -54,7 +54,7 @@
 										<input type="text" name="memberId" class="form-control" placeholder="Id" aria-label="Id">
 									</div>
 									<div class="mb-3">
-										<input type="password" name="memberName"class="form-control" placeholder="Password" aria-label="Password">
+										<input type="password" name="memberPw" class="form-control" placeholder="Password" aria-label="Password">
 									</div>
 									<div class="text-center">
 										<button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">회원가입</button>

@@ -62,7 +62,7 @@
 								<div class="card card-plain">
 									<div class="card-header pb-0 text-start">
 										<h4 class="font-weight-bolder">Sign In</h4>
-										<p class="mb-0">Enter your id and password to sign iin</p>
+										<p class="mb-0">Enter your id and password to sign in</p>
 									</div>
 									<div class="card-body">
 										<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
