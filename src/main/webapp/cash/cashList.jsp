@@ -79,7 +79,6 @@
 			td {
 				height : 180px;
 			}
-			
 		</style>
 	</head>
 	<body class="g-sidenav-show   bg-gray-100">
