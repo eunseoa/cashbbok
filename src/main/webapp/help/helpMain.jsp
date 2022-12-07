@@ -36,7 +36,7 @@
 		<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
 		<main class="main-content position-relative border-radius-lg">
 			<div class="container-fluid py-4">
-				<div class="card" style="height: 900px;">
+				<div class="card" style="height: 950px;">
 					<div class="card-header pb-0">
 						<div class="pb-4">
 							<h4>고객센터</h4>

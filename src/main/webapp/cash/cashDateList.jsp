@@ -191,18 +191,18 @@
 										<tr>
 											<td>cashPrice</td>
 											<td>
-												<input class="form-control" type="text" name="cashPrice" onfocus="focused(this)">
+												<input class="form-control" type="text" name="cashPrice">
 											</td>
 										</tr>
 										<tr>
 											<td>cashMemo</td>
 											<td>
-												<textarea class="form-control" cols="58" name="cashMemo" onfocus="focused(this)"></textarea>
+												<textarea class="form-control" cols="58" name="cashMemo"></textarea>
 											</td>
 										</tr>
 										<tr>
 											<td colspan="2" style="text-align:right;">
-												<button type="submit" class="btn btn-primary btn-sm ms-auto">add</button>
+												<button type="submit" class="btn btn-primary ms-auto">add</button>
 											</td>
 										</tr>
 									</table>

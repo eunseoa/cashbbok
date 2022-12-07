@@ -23,25 +23,84 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
+		<link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
+		<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 	</head>
-	<body>
-		<%=loginMember.getMemberName() %>님, 반갑습니다.
-		<a href="<%=request.getContextPath() %>/cash/cashList.jsp">되돌아가기</a>
-		<table>
-			<tr>
-				<th>아이디</th>
-				<td><%=loginMember.getMemberId() %></td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td><%=loginMember.getMemberName() %></td>
-			</tr>
+	<body class="g-sidenav-show bg-gray-100">
+		<div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
+			<span class="mask bg-primary opacity-6"></span>
+		</div>
+		<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
+		<div class="main-content position-relative max-height-vh-100 h-100">
+			<div class="card shadow-lg mx-4 card-profile-bottom">
+				<div class="card-body p-3">
+					<div class="row gx-4">
+						<div class="col-auto">
+							<div class="avatar avatar-xl position-relative">
+								<img src="../assets/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+							</div>
+						</div>
+						<div class="col-auto my-auto">
+							<div class="h-100">
+								<h5 class="mb-1">
+								<%=loginMember.getMemberId() %>
+								</h5>
+								<p class="mb-0 font-weight-bold text-sm">
+								<%=loginMember.getMemberName() %>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid py-4">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header pb-0">
+								<div class="d-flex align-items-center">
+									<p class="mb-0">Profile</p>
+									<a class="btn btn-primary btn-sm" href="<%=request.getContextPath() %>/member/updateMemberAction.jsp">정보 수정</a>
+									<a class="btn btn-primary btn-sm" href="<%=request.getContextPath() %>/member/deleteMemberForm.jsp">회원 탈퇴</a>
+								</div>
+							</div>
+							<form action="<%=request.getContextPath() %>/member/updateMemberAction.jsp" method="get">
+								<div class="card-body">
+									<p class="text-uppercase text-sm">User</p>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="example-text-input" class="form-control-label">Name</label> <input class="form-control" type="text" name="memberName" value="<%=loginMember.getMemberName() %>">
+											</div>
+										</div>					
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="example-text-input" class="form-control-label">ID</label> <input class="form-control" type="text" name="memberId" value="<%=loginMember.getMemberId() %>">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="example-text-input" class="form-control-label">PASSWORD</label> <input class="form-control" type="password" name="memberPw">
+											</div>
+										</div>
+										<div>
+											<button class="btn btn-primary btn-sm" type="submit">정보 수정</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 			<tr>
 				<td colspan="2">
 					<a href="<%=request.getContextPath() %>/member/updateMemberForm.jsp">정보 수정</a>
 					<a href="<%=request.getContextPath() %>/member/deleteMemberForm.jsp">회원 탈퇴</a>
 				</td>
 			</tr>
-		</table>
+
 	</body>
 </html>

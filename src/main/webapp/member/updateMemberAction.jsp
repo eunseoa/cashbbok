@@ -22,6 +22,7 @@
 	
 	MemberDao memberDao = new MemberDao();
 	Member updateMember = memberDao.updateMember(paramMember);
+	session.setAttribute("loginMember", updateMember);
 	
 	response.sendRedirect(request.getContextPath()+"/member/memberOne.jsp");
 %>
