@@ -18,8 +18,8 @@
 			|| request.getParameter("date") == null || request.getParameter("date").equals("")) {
 			response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp");
 			return;
-		}
-
+	}
+	
 	int year = Integer.parseInt(request.getParameter("year"));
 	int month = Integer.parseInt(request.getParameter("month"));
 	int date = Integer.parseInt(request.getParameter("date"));

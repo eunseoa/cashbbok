@@ -101,14 +101,15 @@ public class HelpDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int row = 0;
-		String sql = "INSERT INTO help(help_memo, member_id, updatedate, createdate) VALUES(?, ?, NOW(), NOW())";
+		String sql = "INSERT INTO help(help_memo, help_title, member_id, updatedate, createdate) VALUES(?, ?, ?, NOW(), NOW())";
 
 		// 예외처리
 		try {
 			conn = dbUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, help.getHelpMemo());
-			stmt.setString(2, help.getMemberId());
+			stmt.setString(2, help.getHelpTitle());
+			stmt.setString(3, help.getMemberId());
 			
 			row = stmt.executeUpdate();
 			if(row == 1) {

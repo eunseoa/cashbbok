@@ -13,11 +13,13 @@
 	}
 	
 	String memberId = request.getParameter("memberId");
+	String helpTitle = request.getParameter("helpTitle");
 	String helpMemo = request.getParameter("helpMemo");
 	
 	// Model 호출
 	Help help = new Help();
 	help.setMemberId(memberId);
+	help.setHelpTitle(helpTitle);
 	help.setHelpMemo(helpMemo);
 	
 	HelpDao helpDao = new HelpDao();

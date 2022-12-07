@@ -21,8 +21,15 @@
 		<div>
 			<form action="<%=request.getContextPath() %>/help/insertHelpAction.jsp" method="post">
 				<table>
+				
 					<tr>
 						<td><input type="hidden" name="memberId" value="<%=loginMember.getMemberId() %>"></td>
+					</tr>
+					<tr>
+						<td>문의 제목</td>
+						<td><input type="text" name="helpTitle"></td>
+					</tr>
+					<tr>
 						<td>문의 내용</td>
 						<td><textarea name="helpMemo"></textarea></td>
 					</tr>
