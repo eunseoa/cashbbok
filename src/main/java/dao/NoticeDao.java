@@ -51,14 +51,14 @@ public class NoticeDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int row = 0;
-		String sql = "UPDATE notice SET notice_memo = ? AND notice_title = ? WHERE notice_no = ?";
+		String sql = "UPDATE notice SET notice_memo = ?, notice_title = ? WHERE notice_no = ?";
 		
 		// 예외처리
 		try {
 			conn = dbUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, notice.getNoticeMemo());
-			stmt.setString(1, notice.getNoticeTitle());
+			stmt.setString(2, notice.getNoticeTitle());
 			stmt.setInt(3, notice.getNoticeNo());
 			row = stmt.executeUpdate();
 			if(row == 1) {
@@ -191,7 +191,7 @@ public class NoticeDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		// 공지 상세내용 출력
-		String sql = "SELECT notice_title noticeTitle, notice_memo noticeMemo, updatedate, createdate FROM notice WHERE notice_no =?";
+		String sql = "SELECT notice_no noticeNo, notice_title noticeTitle, notice_memo noticeMemo, updatedate, createdate FROM notice WHERE notice_no =?";
 		
 		// 예외출력
 		try {
@@ -203,6 +203,7 @@ public class NoticeDao {
 			
 			if(rs.next()) {
 				resultNotice = new Notice();
+				resultNotice.setNoticeNo(rs.getInt("noticeNo"));
 				resultNotice.setNoticeTitle(rs.getString("noticeTitle"));
 				resultNotice.setNoticeMemo(rs.getString("noticeMemo"));
 				resultNotice.setUpdatedate(rs.getString("updatedate"));

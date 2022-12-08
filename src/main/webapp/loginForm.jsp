@@ -84,10 +84,11 @@
 									</tr>
 									<%
 										for (Notice n : list) {	
+											String createdate = (String)(n.getCreatedate());
 									%>
 										<tr>
-											<td><a href="<%=request.getContextPath() %>/notice/noticeOne.jsp"><%=n.getNoticeTitle() %></a></td>
-											<td><%=n.getCreatedate()%></td>
+											<td><a href="<%=request.getContextPath() %>/notice/noticeOne.jsp?noticeNo=<%=n.getNoticeNo() %>"><%=n.getNoticeTitle() %></a></td>
+											<td><%=createdate.substring(0, 10)%></td>
 										</tr>
 									<%
 										}

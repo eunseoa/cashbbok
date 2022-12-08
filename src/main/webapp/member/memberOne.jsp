@@ -32,7 +32,17 @@
 		<div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
 			<span class="mask bg-primary opacity-6"></span>
 		</div>
-		<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
+		<%
+			if (loginMember.getMemberLevel() == 1) {
+		%>
+				<jsp:include page="/inc/sidebarByAdmin.jsp"></jsp:include>
+		<%
+			} else {
+		%>
+				<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
+		<%
+			}
+ 		%>
 		<div class="main-content position-relative max-height-vh-100 h-100">
 			<div class="card shadow-lg mx-4 card-profile-bottom">
 				<div class="card-body p-3">
@@ -59,34 +69,36 @@
 				<div class="row">
 					<div class="col-md-12">
 						<form action="<%=request.getContextPath()%>/member/updateMemberAction.jsp" method="get">
-							<div class="card">
+							<div class="card" style="height: 350px;">
 								<div class="card-header pb-0">
-									<div class="d-flex align-items-center">
-										<p class="mb-0">정보수정</p>
-									</div>
-									<div style="float:right;">
-										<button class="btn btn-primary btn-sm" type="submit">정보 수정</button>
-									</div>
-								</div>
-								<div class="card-body">
 									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="example-text-input" class="form-control-label">Name</label> <input class="form-control" type="text" name="memberName" value="<%=loginMember.getMemberName() %>">
-											</div>
-										</div>					
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="example-text-input" class="form-control-label">ID</label> <input class="form-control" type="text" name="memberId" value="<%=loginMember.getMemberId() %>">
-											</div>
+										<div class="col-6 d-flex align-items-center">
+											<p class="mb-0">정보수정</p>
 										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="example-text-input" class="form-control-label">PASSWORD</label> <input class="form-control" type="password" name="memberPw">
+										<div class="col-6 text-end">
+											<button class="btn bg-gradient-primary btn-sm" type="submit">정보 수정</button>
+											<a class="btn bg-gradient-primary btn-sm" href="<%=request.getContextPath() %>/member/deleteMemberForm.jsp">회원 탈퇴</a> <!-- modal로 구현 -->
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="example-text-input" class="form-control-label">Name</label> <input class="form-control" type="text" name="memberName" value="<%=loginMember.getMemberName() %>">
+												</div>
+											</div>					
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="example-text-input" class="form-control-label">ID</label> <input class="form-control" type="text" name="memberId" value="<%=loginMember.getMemberId() %>">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="example-text-input" class="form-control-label">PASSWORD</label> <input class="form-control" type="password" name="memberPw">
+												</div>
 											</div>
 										</div>
 									</div>
-									<a class="btn btn-primary btn-sm" href="<%=request.getContextPath() %>/member/deleteMemberForm.jsp">회원 탈퇴</a> <!-- modal로 구현 -->
 								</div>
 							</div>
 						</form>

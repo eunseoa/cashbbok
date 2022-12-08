@@ -2,14 +2,14 @@
 <%@ page import="dao.*" %>
 <%@ page import="vo.*" %>
 <%
+	//로그인 정보 저장
+	Member loginMember = (Member)(session.getAttribute("loginMember"));
+
 	// 비로그인, 일반회원 접근금지
-	if(session.getAttribute("loginMember") == null) {
+	if(loginMember == null || loginMember.getMemberLevel() < 1) {
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-
-	// 로그인 정보 저장
-	Member loginMember = (Member)(session.getAttribute("loginMember"));
 
 	// 공지 번호
 	String noticeNo = request.getParameter("noticeNo");
@@ -34,7 +34,7 @@
 			}
 			
 			textarea {
-				height: 600px;
+				height: 538px;
 				resize: none;
 			}
 			
@@ -67,36 +67,30 @@
 						<div class="card-body px-0 pt-0 pb-0 text-center">
 							<ul class="list-group">
 								<li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-									<div class="d-flex flex-column" style="width:1250px;">
-										<table>
-											<tr>
-												<th>제목</th>
-												<td><input type="text" class="form-control" value="<%=noticeOne.getNoticeTitle() %>" readonly="readonly"></td>
-											</tr>
-											<tr>
-												<th>작성일자</th>
-												<td><input type="text" class="form-control" value="마지막 수정일자 · <%=noticeOne.getUpdatedate() %> - 최초 작성일자 · <%=noticeOne.getCreatedate() %>" readonly="readonly"></td>
-											</tr>
-											<tr>
-												<th>내용</th>
-												<td><textarea class="form-control" cols="100" readonly="readonly"><%=noticeOne.getNoticeMemo() %></textarea></td>
-											</tr>
-										</table>
-									</div>
-									<div class="ms-auto text-end">
-										<% 
-											if(loginMember.getMemberLevel() == 1) {
-										%>
-											<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="<%=request.getContextPath() %>/admin/deleteNoticeAction.jsp?noticeNo=<%=noticeOne.getNoticeNo() %>">
-												<i class="far fa-trash-alt"></i>
-											</a>
-											<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/admin/updateNoticeForm.jsp?noticeNo=<%=noticeOne.getNoticeNo() %>">
-												<i class="fas fa-pencil-alt text-dark"></i>
-											</a>
-										<%
-											}
-										%>
-									</div>
+									<form action="<%=request.getContextPath() %>/admin/updateNoticeAction.jsp" method="post">
+										<div class="d-flex flex-column" style="width:1450px;">
+											<table>
+												<tr>
+													<th>제목</th>
+													<td>
+														<input type="hidden" name="noticeNo" value="<%=noticeOne.getNoticeNo() %>">
+														<input type="text" class="form-control" name="noticeTitle" value="<%=noticeOne.getNoticeTitle() %>">
+													</td>
+												</tr>
+												<tr>
+													<th>작성일자</th>
+													<td><input type="text" class="form-control" value="마지막 수정일자 · <%=noticeOne.getUpdatedate() %> - 최초 작성일자 · <%=noticeOne.getCreatedate() %>" readonly="readonly"></td>
+												</tr>
+												<tr>
+													<th>내용</th>
+													<td><textarea class="form-control" name="noticeMemo" cols="100"><%=noticeOne.getNoticeMemo() %></textarea></td>
+												</tr>
+											</table>
+										</div>
+										<div>
+											<button type="submit" class="btn btn-primary btn-lg w-100">수정</button>
+										</div>
+									</form>
 								</li>
 							</ul>
 						</div>

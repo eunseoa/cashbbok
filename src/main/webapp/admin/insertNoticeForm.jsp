@@ -56,8 +56,9 @@
 										<td><textarea class="form-control" cols="200" name="noticeMemo"></textarea></td>
 									</tr>
 									<tr>
-										<td colspan="2" style="text-align:right;">
-											<button type="submit" class="btn btn-primary">add</button>
+										<td></td>
+										<td>
+											<button type="button" class="btn bg-gradient-primary btn-lg w-100">add</button>
 										</td>
 									</tr>
 								</table>

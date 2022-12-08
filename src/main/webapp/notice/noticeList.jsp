@@ -52,7 +52,17 @@
 	</head>
 	<body class="g-sidenav-show bg-gray-100">
 		<div class="min-height-300 bg-primary position-absolute w-100"></div>
-		<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
+		<%
+			if (loginMember.getMemberLevel() == 1) {
+		%>
+				<jsp:include page="/inc/sidebarByAdmin.jsp"></jsp:include>
+		<%
+			} else {
+		%>
+				<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
+		<%
+			}
+ 		%>
 		<main class="main-content border-radius-lg">
 			<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
 				<div class="container-fluid py-1 px-3">
@@ -70,20 +80,24 @@
 			</nav>
 			<div class="container-fluid py-4">
 				<div class="card" style="height: 900px;">
-					<div class="card-header">
-						<div class="pb-4">
-							<h4>공지</h4>
-							<%
-								if(loginMember.getMemberLevel() == 1) {
-							%>
-									<a href="<%=request.getContextPath() %>/admin/insertNoticeForm.jsp">공지등록</a>
-							<%
-								} else {
-							%>
-									&nbsp;
-							<%
-								}
-							%>
+					<div class="card-header pb-0">
+						<div class="row">
+							<div class="col-6 d-flex align-items-center">
+								<h4 class="mb-0">공지</h4>
+							</div>
+							<div class="col-6 text-end">
+								<%
+									if(loginMember.getMemberLevel() == 1) {
+								%>
+										<a href="<%=request.getContextPath() %>/admin/insertNoticeForm.jsp" class="btn bg-gradient-primary btn-lg">공지등록</a>
+								<%
+									} else {
+								%>
+										&nbsp;
+								<%
+									}
+								%>
+							</div>
 						</div>
 						<div class="card-body px-0 pt-0 pb-0 text-center">
 							<table class="table align-items-center mb-0">
