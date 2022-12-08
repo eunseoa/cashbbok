@@ -40,7 +40,7 @@
 	<body class="g-sidenav-show bg-gray-100">
 		<div class="min-height-300 bg-primary position-absolute w-100"></div>
 		<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
-		<main class="main-content position-relative border-radius-lg">
+		<main class="main-content border-radius-lg">
 			<div class="container-fluid py-4">
 				<div class="card" style="height: 950px;">
 					<div class="card-header pb-0">
@@ -50,16 +50,15 @@
 						<div class="card-body px-0 pt-0 pb-0">
 							<form action="<%=request.getContextPath() %>/help/insertHelpAction.jsp" method="post">
 								<table>
-								
 									<tr>
 										<td><input type="hidden" name="memberId" value="<%=loginMember.getMemberId() %>"></td>
 									</tr>
 									<tr>
-										<td>문의 제목</td>
+										<th>제목</th>
 										<td><input class="form-control"  type="text" name="helpTitle"></td>
 									</tr>
 									<tr>
-										<td>문의 내용</td>
+										<th>내용</th>
 										<td><textarea class="form-control" cols="200" name="helpMemo"></textarea></td>
 									</tr>
 									<tr>

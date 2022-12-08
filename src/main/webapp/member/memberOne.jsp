@@ -58,17 +58,17 @@
 			<div class="container-fluid py-4">
 				<div class="row">
 					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header pb-0">
-								<div class="d-flex align-items-center">
-									<p class="mb-0">Profile</p>
-									<a class="btn btn-primary btn-sm" href="<%=request.getContextPath() %>/member/updateMemberAction.jsp">정보 수정</a>
-									<a class="btn btn-primary btn-sm" href="<%=request.getContextPath() %>/member/deleteMemberForm.jsp">회원 탈퇴</a>
+						<form action="<%=request.getContextPath()%>/member/updateMemberAction.jsp" method="get">
+							<div class="card">
+								<div class="card-header pb-0">
+									<div class="d-flex align-items-center">
+										<p class="mb-0">정보수정</p>
+									</div>
+									<div style="float:right;">
+										<button class="btn btn-primary btn-sm" type="submit">정보 수정</button>
+									</div>
 								</div>
-							</div>
-							<form action="<%=request.getContextPath() %>/member/updateMemberAction.jsp" method="get">
 								<div class="card-body">
-									<p class="text-uppercase text-sm">User</p>
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
@@ -85,22 +85,14 @@
 												<label for="example-text-input" class="form-control-label">PASSWORD</label> <input class="form-control" type="password" name="memberPw">
 											</div>
 										</div>
-										<div>
-											<button class="btn btn-primary btn-sm" type="submit">정보 수정</button>
-										</div>
 									</div>
+									<a class="btn btn-primary btn-sm" href="<%=request.getContextPath() %>/member/deleteMemberForm.jsp">회원 탈퇴</a> <!-- modal로 구현 -->
 								</div>
-							</form>
-						</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-			<tr>
-				<td colspan="2">
-					<a href="<%=request.getContextPath() %>/member/updateMemberForm.jsp">정보 수정</a>
-					<a href="<%=request.getContextPath() %>/member/deleteMemberForm.jsp">회원 탈퇴</a>
-				</td>
-			</tr>
-
+		</div>
 	</body>
 </html>

@@ -82,15 +82,10 @@
 					</div>
 					<ul class="navbar-nav  justify-content-end">
 						<li class="nav-item d-flex align-items-center">
-							<a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+							<div class="nav-link text-white font-weight-bold px-0">
 								<i class="fa fa-user me-sm-1"></i>
-								<span class="d-sm-inline d-none"><%=loginMember.getMemberId() %></span>
-							</a>
-						</li>
-						<li class="nav-item px-3 d-flex align-items-center">
-							<a href="<%=request.getContextPath() %>/member/updateMemberForm.jsp" class="nav-link text-white p-0">
-								<i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-							</a>
+								<span class="d-sm-inline d-none"><%=loginMember.getMemberId() %>, welcome!</span>
+							</div>
 						</li>
 					</ul>
 				</div>

@@ -17,13 +17,14 @@ public class NoticeDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int row = 0;
-		String sql = "INSERT notice(notice_memo, updatedate, createdate) VALUES(?, NOW(), NOW())";
+		String sql = "INSERT notice(notice_title, notice_memo, updatedate, createdate) VALUES(?, ?, NOW(), NOW())";
 		
 		// 예외처리
 		try {
 			conn = dbUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, notice.getNoticeMemo());
+			stmt.setString(1, notice.getNoticeTitle());
+			stmt.setString(2, notice.getNoticeMemo());
 			row = stmt.executeUpdate();
 			if(row == 1) {
 				resultRow = 1;
@@ -50,14 +51,15 @@ public class NoticeDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int row = 0;
-		String sql = "UPDATE notice SET notice_memo = ? WHERE notice_no = ?";
+		String sql = "UPDATE notice SET notice_memo = ? AND notice_title = ? WHERE notice_no = ?";
 		
 		// 예외처리
 		try {
 			conn = dbUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, notice.getNoticeMemo());
-			stmt.setInt(2, notice.getNoticeNo());
+			stmt.setString(1, notice.getNoticeTitle());
+			stmt.setInt(3, notice.getNoticeNo());
 			row = stmt.executeUpdate();
 			if(row == 1) {
 				resultRow = 1;
@@ -140,7 +142,7 @@ public class NoticeDao {
 		return count;
 	}
 	
-	// loginForm.jsp 공지목록
+	// loginForm.jsp, noticeList.jsp 공지 목록 출력
 	public ArrayList<Notice> selectNoticeListByPage(int beginRow, int rowPerPage) {
 		// 초기화
 		ArrayList<Notice> list = null;
@@ -150,7 +152,7 @@ public class NoticeDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		// 공지 출력
-		String sql = "SELECT notice_no noticeNo, notice_memo noticeMemo, createdate FROM notice ORDER BY createdate DESC LIMIT ?, ?";
+		String sql = "SELECT notice_no noticeNo, notice_title noticeTitle, createdate FROM notice ORDER BY createdate DESC LIMIT ?, ?";
 		
 		// 예외출력
 		try {
@@ -163,7 +165,7 @@ public class NoticeDao {
 			while(rs.next()) {
 				Notice n = new Notice();
 				n.setNoticeNo(rs.getInt("noticeNo"));
-				n.setNoticeMemo(rs.getString("noticeMemo"));
+				n.setNoticeTitle(rs.getString("noticeTitle"));
 				n.setCreatedate(rs.getString("createdate"));
 				list.add(n);
 			}
@@ -179,4 +181,44 @@ public class NoticeDao {
 		return list;
 	}
 	
+	// noticeList.jsp 공지 상세내용
+	public Notice selectNoticeOne(String noticeNo) {
+		// 초기화
+		Notice resultNotice = null;
+		// db 연결 메소드
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		// 공지 상세내용 출력
+		String sql = "SELECT notice_title noticeTitle, notice_memo noticeMemo, updatedate, createdate FROM notice WHERE notice_no =?";
+		
+		// 예외출력
+		try {
+			conn = dbUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, noticeNo);
+			
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				resultNotice = new Notice();
+				resultNotice.setNoticeTitle(rs.getString("noticeTitle"));
+				resultNotice.setNoticeMemo(rs.getString("noticeMemo"));
+				resultNotice.setUpdatedate(rs.getString("updatedate"));
+				resultNotice.setCreatedate(rs.getString("createdate"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return resultNotice;
+	}
 }

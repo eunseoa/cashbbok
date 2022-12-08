@@ -27,7 +27,7 @@
 				<li class="nav-item">
 					<a class="nav-link " href="<%=request.getContextPath() %>/cash/cashList.jsp">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
-						<i class="ni ni-calendar-grid-58 text-primary text-sm opacity-10"></i>
+							<i class="ni ni-calendar-grid-58 text-primary text-sm opacity-10"></i>
 						</div>
 						<span class="nav-link-text ms-1">CashBook</span>
 					</a>
@@ -35,9 +35,17 @@
 				<li class="nav-item">
 					<a class="nav-link " href="<%=request.getContextPath() %>/help/helpMain.jsp">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
-						<i class="ni ni-single-copy-04 text-secondary text-sm opacity-10"></i>
+							<i class="ni ni-chat-round text-secondary text-sm opacity-10"></i>
 						</div>
 						<span class="nav-link-text ms-1">Q & A</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " href="<%=request.getContextPath() %>/notice/noticeList.jsp">
+						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
+							<i class="ni ni-single-copy-04 text-secondary text-sm opacity-10"></i>
+						</div>
+						<span class="nav-link-text ms-1">Notice</span>
 					</a>
 				</li>
 				<li class="nav-item mt-3">
@@ -54,7 +62,7 @@
 				<li class="nav-item">
 					<a class="nav-link " href="<%=request.getContextPath() %>/logout.jsp">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
-						<i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+							<i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
 						</div>
 						<span class="nav-link-text ms-1">Logout</span>
 					</a>

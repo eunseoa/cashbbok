@@ -6,26 +6,40 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 	
-	// 비로그인 접근금지
-	Member loginMember = (Member)(session.getAttribute("loginMember"));
-	if(loginMember == null) {
+	if(session.getAttribute("loginMember") == null) {
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
+	} 
+	
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	
+	int currentPage = 1;
+	if(request.getParameter("currentPage") != null) {
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
-	// 로그인 아이디
-	String memberId = loginMember.getMemberId();
+	int rowPerPage = 15;
+	int beginRow = (currentPage - 1) * rowPerPage;
 	
-	// Model 호출
-	HelpDao helpDao = new HelpDao();
-	ArrayList<HashMap<String, Object>> helpList = helpDao.selectHelpList(memberId);
+	// Model 호출 : noticeList
+	NoticeDao noticeDao = new NoticeDao();
+	ArrayList<Notice> list = noticeDao.selectNoticeListByPage(beginRow, rowPerPage);
 	
+	// 마지막페이지
+	int noticeCnt = noticeDao.selectNoticeCount();
+	int lastPage = noticeCnt / rowPerPage;
+	if(lastPage % rowPerPage != 0) {
+		lastPage++;
+	}
+	
+	
+	// View
 %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>고객센터</title>
+		<title>공지</title>
 		<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 		<link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
 		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
@@ -58,43 +72,66 @@
 				<div class="card" style="height: 900px;">
 					<div class="card-header">
 						<div class="pb-4">
-							<h4>고객센터</h4>
-							<a href="<%=request.getContextPath() %>/help/insertHelpForm.jsp">문의하기</a>
+							<h4>공지</h4>
+							<%
+								if(loginMember.getMemberLevel() == 1) {
+							%>
+									<a href="<%=request.getContextPath() %>/admin/insertNoticeForm.jsp">공지등록</a>
+							<%
+								} else {
+							%>
+									&nbsp;
+							<%
+								}
+							%>
 						</div>
 						<div class="card-body px-0 pt-0 pb-0 text-center">
 							<table class="table align-items-center mb-0">
 								<tr>
 									<th style="width: 100px;">no</th>
 									<th>제목</th>
-									<th>아이디</th>
 									<th>작성일자</th>
-									<th>답변현황</th>
 								</tr>
 								<tr>
 								<%
-									for(HashMap<String, Object> m : helpList) {
-										String helpCreatedate = (String)(m.get("helpCreatedate"));
+									for(Notice n : list) {
+										String createdate = (String)(n.getCreatedate());
 								%>
-										<td><%=m.get("helpNo") %></td>
-										<td><a href="<%=request.getContextPath() %>/help/helpOne.jsp?helpNo=<%=m.get("helpNo") %>"><%=m.get("helpTitle") %></a></td>
-										<td><%=m.get("memberId") %></td>
-										<td><%=helpCreatedate.substring(0, 10) %></td>
-										<%
-											if(m.get("commentCreatedate") == null) {
-										%>
-												<td>답변대기</td>
-										<%
-											} else {
-										%>
-												<td>답변완료</td>
-										<%
-											}
-										%>
-										</tr><tr>
-										
+										<td><%=n.getNoticeNo() %></td>
+										<td><a href="<%=request.getContextPath() %>/notice/noticeOne.jsp?noticeNo=<%=n.getNoticeNo() %>"><%=n.getNoticeTitle() %></a></td>
+										<td><%=createdate.substring(0, 10) %></td>
+										</tr>
 								<%
 									}
 								%>
+								<tr>
+									<td colspan="4">
+									<%
+										if(currentPage != 0) {
+									%>
+											<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=1">처음</a>
+									<%
+										}
+									
+										if (currentPage > 1) {
+									%>
+											<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=<%=currentPage - 1 %>">이전</a>
+									<%
+										}
+									
+										if (currentPage < lastPage) {
+									%>
+											<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=<%=currentPage + 1 %>">다음</a>
+									<%
+										}
+									
+										if (lastPage != 0) {
+									%>
+											<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=<%=lastPage %>">마지막</a>
+									<%
+										}
+									%>
+									</td>
 								</tr>
 							</table>
 						</div>

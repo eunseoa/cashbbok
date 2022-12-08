@@ -71,12 +71,27 @@
 				width : 180px;
 				height : 180px;
 			}
+
 		</style>
 	</head>
 	<body class="g-sidenav-show bg-gray-100">
 		<div class="min-height-300 bg-primary position-absolute w-100"></div>
 		<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
 		<main class="main-content position-relative border-radius-lg">
+			<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+				<div class="container-fluid py-1 px-3">
+					<div class="ms-md-auto pe-md-3 d-flex align-items-center">
+					</div>
+					<ul class="navbar-nav  justify-content-end">
+						<li class="nav-item d-flex align-items-center">
+							<div class="nav-link text-white font-weight-bold px-0">
+								<i class="fa fa-user me-sm-1"></i>
+								<span class="d-sm-inline d-none"><%=loginMember.getMemberId() %>, welcome!</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
 			<div class="container-fluid py-4">
 				<div class="card" style="height: 1035px;">
 					<div class="card-header pb-0">
