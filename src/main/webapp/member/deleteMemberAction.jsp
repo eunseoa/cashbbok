@@ -7,13 +7,13 @@
 	request.setCharacterEncoding("utf-8");
 
 	if (session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
 	
 	if(request.getParameter("memberId") == null || request.getParameter("memberId").equals("")
 		|| request.getParameter("memberPw") == null || request.getParameter("memberPw").equals("")) {
-		response.sendRedirect(request.getContextPath()+"/member/deleteMemberForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/member/memberOne.jsp");
 		return;
 	}
 
@@ -29,8 +29,12 @@
 	System.out.println(row + "<- deleteMember row");
 	
 	if(row == 1) {
+		System.out.println("탈퇴성공");
 		session.invalidate();
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+	} else {
+		System.out.println("탈퇴실패");
+		response.sendRedirect(request.getContextPath()+"/member/memberOne.jsp");
 	}
 	
 %>

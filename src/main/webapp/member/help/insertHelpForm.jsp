@@ -16,10 +16,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
-		<link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+		<link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
 		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
-		<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+		<link id="pagestyle" href="../../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 		<style>
 			table {
 				border-collapse: separate;

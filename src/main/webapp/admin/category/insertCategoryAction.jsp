@@ -25,11 +25,11 @@
 	
 	if(row == 1) {
 		System.out.println("추가 성공");
-		response.sendRedirect(request.getContextPath()+"/admin/categoryList.jsp");
+		response.sendRedirect(request.getContextPath()+"/admin/category/categoryList.jsp");
 		return;
 	} else {
 		System.out.println("추가 실패");
-		response.sendRedirect(request.getContextPath()+"/admin/categoryList.jsp");
+		response.sendRedirect(request.getContextPath()+"/admin/category/categoryList.jsp");
 		return;
 	}
 %>

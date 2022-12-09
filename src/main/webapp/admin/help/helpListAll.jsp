@@ -64,7 +64,7 @@
 								
 							</div>
 						</div>
-						<div class="card-body px-0 pt-0 pb-0 text-center">
+						<div class="card-body px-0 text-center">
 							<table class="table align-items-center mb-0">
 								<tr>
 									<th>no</th>

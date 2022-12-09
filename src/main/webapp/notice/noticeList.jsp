@@ -18,7 +18,7 @@
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
-	int rowPerPage = 15;
+	int rowPerPage = 10;
 	int beginRow = (currentPage - 1) * rowPerPage;
 	
 	// Model 호출 : noticeList
@@ -46,7 +46,11 @@
 		<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 		<style>
 			th {
-				width: 300px;
+				height: 50px;
+			}
+			
+			td {
+				height: 60px;
 			}
 		</style>
 	</head>
@@ -99,11 +103,11 @@
 								%>
 							</div>
 						</div>
-						<div class="card-body px-0 pt-0 pb-0 text-center">
-							<table class="table align-items-center mb-0">
+						<div class="card-body px-0 text-center">
+							<table class="table align-items-center mb-3">
 								<tr>
-									<th style="width: 100px;">no</th>
-									<th>제목</th>
+									<th style="width: 200px;">no</th>
+									<th style="width: 1000px;">제목</th>
 									<th>작성일자</th>
 								</tr>
 								<tr>
