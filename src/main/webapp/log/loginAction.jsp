@@ -13,7 +13,7 @@
 	if(request.getParameter("memberId") == null || request.getParameter("memberId").equals("")
 		|| request.getParameter("memberPw") == null || request.getParameter("memberPw").equals("")) {
 			System.out.println("미입력");
-			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+			response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 			return;
 		}
 	

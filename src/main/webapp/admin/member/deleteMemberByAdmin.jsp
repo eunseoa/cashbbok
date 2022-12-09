@@ -10,7 +10,7 @@
 
 	// 일반회원이거나 비로그인시 접근금지
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
 
@@ -27,6 +27,6 @@
 	
 	// 삭제성공
 	if(deleteRow == 1) {
-		response.sendRedirect(request.getContextPath()+"/admin/memberList.jsp");
+		response.sendRedirect(request.getContextPath()+"/admin/member/memberList.jsp");
 	}
 %>

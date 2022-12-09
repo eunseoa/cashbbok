@@ -7,7 +7,7 @@
 
 	// 비로그인, 일반회원 접근금지
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
 
@@ -23,10 +23,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>NoticeOne</title>
-		<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
-		<link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+		<link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
 		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
-		<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+		<link id="pagestyle" href="../../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 		<style>
 			table {
 				border-collapse: separate;
@@ -67,7 +67,7 @@
 						<div class="card-body px-0 pt-0 pb-0 text-center">
 							<ul class="list-group">
 								<li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-									<form action="<%=request.getContextPath() %>/admin/updateNoticeAction.jsp" method="post">
+									<form action="<%=request.getContextPath() %>/admin/notice/updateNoticeAction.jsp" method="post">
 										<div class="d-flex flex-column" style="width:1450px;">
 											<table>
 												<tr>

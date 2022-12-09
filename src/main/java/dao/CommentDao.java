@@ -10,7 +10,6 @@ import util.DBUtil;
 import vo.Comment;
 
 public class CommentDao {
-	// 관리자
 	// 답변출력
 	public ArrayList<HashMap<String, Object>> selectCommentList(int helpNo) {
 		// 초기화
@@ -51,7 +50,7 @@ public class CommentDao {
 	}
 
 		
-	
+	// 관리자
 	// 답변 추가
 	public int insertComment(Comment comment) {
 		// 초기화 

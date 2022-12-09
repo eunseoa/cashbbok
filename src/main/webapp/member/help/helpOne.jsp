@@ -9,11 +9,12 @@
 	// 비로그인 접근금지
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
 	if(loginMember == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
 	
 	int helpNo = Integer.parseInt(request.getParameter("helpNo"));
+	System.out.println(helpNo);
 	String memberId = loginMember.getMemberId();
 	
 	// Model 호출
@@ -33,10 +34,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>HelpOne</title>
-		<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
-		<link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+		<link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
 		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
-		<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+		<link id="pagestyle" href="../../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 		<style>
 			table {
 				border-collapse: separate;
@@ -44,13 +45,14 @@
 			}
 			
 			textarea {
-				height: 200px;
+				height: 235px;
 				resize: none;
 			}
 			
 			input {
 				height: 60px;
 			}
+			
 		</style>
 	</head>
 	<body class="g-sidenav-show bg-gray-100">
@@ -86,7 +88,7 @@
 														<td><input type="text" class="form-control" value="<%=help.getHelpTitle() %>" readonly="readonly"></td>
 													</tr>
 													<tr>
-														<td>작성자</td>
+														<th>작성자</th>
 														<td><input type="text" class="form-control" value="<%=help.getMemberId() %>" readonly="readonly"></td>
 													</tr>
 													<tr>
@@ -94,8 +96,8 @@
 														<td><textarea class="form-control" cols="100" readonly="readonly"><%=help.getHelpMemo() %></textarea></td>
 													</tr>
 													<tr>
-														<th>작성일자</th>
-														<td><input type="text" class="form-control" value="마지막 수정일자 · <%=help.getUpdatedate() %> - 최초 작성일자 · <%=help.getCreatedate()%>" readonly="readonly"></td>
+														<th></th>
+														<td><span class="mb-2 text-sm">마지막 수정 · <%=help.getUpdatedate() %> &nbsp; 최초 작성 · <%=help.getCreatedate()%></span></td>
 													</tr>
 												</table>
 											</div>
@@ -107,7 +109,7 @@
 															<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="<%=request.getContextPath() %>/help/deleteHelp.jsp?helpNo=<%=helpNo %>">
 																<i class="far fa-trash-alt"></i>
 															</a>
-															<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/help/updateHelpForm.jsp?helpNo=<%=helpNo %>">
+															<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/member/help/updateHelpForm.jsp?helpNo=<%=helpNo %>">
 																<i class="fas fa-pencil-alt text-dark"></i>
 															</a>
 												<%
@@ -125,25 +127,29 @@
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<div class="card mb-4">
-							<div class="card-header pb-0">
-								<h6>댓글</h6>
+						<div class="card">
+							<div class="card-header pb-0 px-3">
+								<div class="row">
+									<h6 class="mb-0">답변</h6>
+								</div>	
 							</div>
-							<div class="card-body px-0 pt-0 pb-2">
-								<table>
-						            <%
-						               for(HashMap<String, Object> c : commentList) {
-						                  System.out.println((c.get("commentMemo")));
-						            %>
-						                  <tr>
-						                     <td><%=c.get("commentMemo") %></td>
-						                     <td><%=c.get("memberId") %></td>
-						                     <td><%=c.get("createdate") %></td>
-						                  </tr>
-						            <%
-						               }
-						            %>
-						         </table>
+							<div class="card-body pt-4 p-3">
+								<ul class="list-group">
+									<li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+										<div class="d-flex flex-column" style="width:1250px;">
+											<%
+												for(HashMap<String, Object> c : commentList) {
+												   System.out.println((c.get("commentMemo")));
+											%>
+													<h6 class="mb-3 text-sm"><%=c.get("memberId") %></h6>
+													<span class="text-dark font-weight-bold ms-sm-2"><%=c.get("commentMemo") %></span><br>
+													<span class="mb-2 text-sm"><%=c.get("createdate") %></span>
+											<%
+												}
+											%>
+										</div>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>

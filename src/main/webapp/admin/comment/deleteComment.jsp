@@ -8,7 +8,7 @@
 	// 비로그인 접근금지
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
 	
@@ -21,11 +21,11 @@
 	
 	if(row == 1) {
 		System.out.println("삭제성공");
-		response.sendRedirect(request.getContextPath()+"/admin/helpOneListByAdmin.jsp?helpNo=" + helpNo);
+		response.sendRedirect(request.getContextPath()+"/admin//help/helpOneListByAdmin.jsp?helpNo=" + helpNo);
 		return;
 	} else {
 		System.out.println("삭제실패");
-		response.sendRedirect(request.getContextPath()+"/admin/helpOneListByAdmin.jsp?helpNo=" + helpNo);
+		response.sendRedirect(request.getContextPath()+"/admin/help/helpOneListByAdmin.jsp?helpNo=" + helpNo);
 		return;
 	}
 %>

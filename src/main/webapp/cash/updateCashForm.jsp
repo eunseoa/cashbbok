@@ -9,7 +9,7 @@
 	// 비로그인시 접근금지
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
 	

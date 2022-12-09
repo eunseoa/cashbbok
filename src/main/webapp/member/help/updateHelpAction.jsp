@@ -23,11 +23,11 @@
 	
 	if(row == 1) {
 		System.out.println("수정성공");
-		response.sendRedirect(request.getContextPath()+"/help/helpOne.jsp?helpNo=" + helpNo);
+		response.sendRedirect(request.getContextPath()+"/member/help/helpOne.jsp?helpNo=" + helpNo);
 		return;
 	} else {
 		System.out.println("수정실패");
-		response.sendRedirect(request.getContextPath()+"/help/helpOne.jsp?helpNo=" + helpNo);
+		response.sendRedirect(request.getContextPath()+"/member/help/helpOne.jsp?helpNo=" + helpNo);
 		return;
 	}
 %>

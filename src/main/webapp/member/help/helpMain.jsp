@@ -26,10 +26,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>고객센터</title>
-		<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
-		<link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+		<link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
 		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
-		<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+		<link id="pagestyle" href="../../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 		<style>
 			th {
 				width: 300px;
@@ -72,7 +72,7 @@
 								<h4 class="mb-0">내가 작성한 문의글</h4>
 							</div>
 							<div class="col-6 text-end">
-								<a href="<%=request.getContextPath() %>/help/insertHelpForm.jsp" class="btn bg-gradient-primary btn-lg">문의하기</a>
+								<a href="<%=request.getContextPath() %>/member/help/insertHelpForm.jsp" class="btn bg-gradient-primary btn-lg">문의하기</a>
 							</div>
 						</div>
 						<div class="card-body px-0 pt-0 pb-0 text-center">
@@ -90,7 +90,7 @@
 										String helpCreatedate = (String)(m.get("helpCreatedate"));
 								%>
 										<td><%=m.get("helpNo") %></td>
-										<td><a href="<%=request.getContextPath() %>/help/helpOne.jsp?helpNo=<%=m.get("helpNo") %>"><%=m.get("helpTitle") %></a></td>
+										<td><a href="<%=request.getContextPath() %>/member/help/helpOne.jsp?helpNo=<%=m.get("helpNo") %>"><%=m.get("helpTitle") %></a></td>
 										<td><%=m.get("memberId") %></td>
 										<td><%=helpCreatedate.substring(0, 10) %></td>
 										<%

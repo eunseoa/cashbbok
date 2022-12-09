@@ -35,11 +35,11 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 		<title>
 			Sign in
 		</title>
-		<link id="pagestyle" href="assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+		<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 	</head>
 	<body>
 		<main class="main-content">
@@ -53,7 +53,7 @@
 									<p class="mb-0">Enter your id and password to sign in</p>
 								</div>
 								<div class="card-body">
-									<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
+									<form action="<%=request.getContextPath()%>/log/loginAction.jsp" method="post">
 										<div class="mb-3">
 											<input type="text" class="form-control form-control-lg" name="memberId" placeholder="id" aria-label="id">
 										</div>

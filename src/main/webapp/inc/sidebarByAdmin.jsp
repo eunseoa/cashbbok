@@ -33,7 +33,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link " href="<%=request.getContextPath() %>/admin/helpListAll.jsp">
+					<a class="nav-link " href="<%=request.getContextPath() %>/admin/help/helpListAll.jsp">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
 							<i class="ni ni-chat-round text-secondary text-sm opacity-10"></i>
 						</div>
@@ -49,7 +49,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link " href="<%=request.getContextPath() %>/admin/categoryList.jsp">
+					<a class="nav-link " href="<%=request.getContextPath() %>/admin/category/categoryList.jsp">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
 							<i class="ni ni-single-copy-04 text-secondary text-sm opacity-10"></i>
 						</div>
@@ -57,7 +57,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link " href="<%=request.getContextPath() %>/admin/memberList.jsp">
+					<a class="nav-link " href="<%=request.getContextPath() %>/admin/member/memberList.jsp">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
 							<i class="ni ni-single-copy-04 text-secondary text-sm opacity-10"></i>
 						</div>
@@ -76,7 +76,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link " href="<%=request.getContextPath() %>/logout.jsp">
+					<a class="nav-link " href="<%=request.getContextPath() %>/log/logout.jsp">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
 							<i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
 						</div>

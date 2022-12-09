@@ -8,7 +8,7 @@
 
 	// 로그인되어있지않을때
 	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
 	

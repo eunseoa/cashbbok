@@ -8,7 +8,7 @@
 	// 접근금지
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
 	
@@ -16,7 +16,7 @@
 	String categoryName = request.getParameter("categoryName");
 	
 	if(request.getParameter("categoryName") == null || request.getParameter("categoryName").equals("")) {
-		response.sendRedirect(request.getContextPath()+"/admin/updateCategoryForm.jsp?categoryNo=" + categoryNo);
+		response.sendRedirect(request.getContextPath()+"/admin/category/updateCategoryForm.jsp?categoryNo=" + categoryNo);
 		return;
 	}
 	

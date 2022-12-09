@@ -6,10 +6,9 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 
-	// 비로그인 접근금지
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
-	if(loginMember == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+	if(loginMember == null || loginMember.getMemberLevel() < 1) {
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
 	
@@ -18,32 +17,65 @@
 	} else {
 		System.out.println(request.getParameter("helpNo"));
 	}
+	
 	int helpNo = Integer.parseInt(request.getParameter("helpNo"));
 	
 	// Model 호출
+	Help help = new Help();
+	help.setHelpNo(helpNo);
+	
+	HelpDao helpDao = new HelpDao();
+	Help helpOne = helpDao.selectHelpOne(helpNo);
+	
 	CommentDao commentDao = new CommentDao();
 	ArrayList<HashMap<String, Object>> commentList = commentDao.selectCommentList(helpNo);
-	
 %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+		<link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
+		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
+		<link id="pagestyle" href="../../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 	</head>
 	<body>
 		<div>
 			<table>
+				<tr>
+					<td>제목</td>
+					<td><%=helpOne.getHelpTitle() %></td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td><%=helpOne.getHelpMemo() %></td>
+				</tr>
+				<tr>
+					<td>회원</td>
+					<td><%=helpOne.getMemberId() %></td>
+				</tr>
+				<tr>
+					<td>수정일자</td>
+					<td><%=helpOne.getUpdatedate() %></td>
+				</tr>
+				<tr>
+					<td>작성일자</td>
+					<td><%=helpOne.getCreatedate() %></td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table>
 				<%
 					for(HashMap<String, Object> c : commentList) {
-						System.out.println((c.get("helpNo")));
 						System.out.println((c.get("commentMemo")));
 				%>
 						<tr>
 				<%
 						if(c.get("commentMemo") == null) {
 				%>
-							<td><span>답변이 달리지않았습니다</span></td>
+							<td><span>답변 대기</span></td>
 				<%
 						} else {
 				%>
@@ -62,7 +94,7 @@
 				<%
 						}
 				%>
-						</tr><tr>
+						</tr>
 				<%
 					}
 				%>
