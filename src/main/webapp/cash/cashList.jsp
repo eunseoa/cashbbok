@@ -6,7 +6,7 @@
 	// Controller : session, rquest
 	request.setCharacterEncoding("utf-8");
 	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	

@@ -8,17 +8,18 @@
 	// 접근금지
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	}
+	
+	if(request.getParameter("categoryNo") == null || request.getParameter("categoryNo").equals("")
+		|| request.getParameter("categoryName") == null || request.getParameter("categoryName").equals("")) {
+		out.println("<script>alert('오류'); location.href='" + request.getContextPath() + "/admin/category/updateCategoryForm.jsp?" + "';</script>");
 		return;
 	}
 	
 	int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
 	String categoryName = request.getParameter("categoryName");
-	
-	if(request.getParameter("categoryName") == null || request.getParameter("categoryName").equals("")) {
-		response.sendRedirect(request.getContextPath()+"/admin/category/updateCategoryForm.jsp?categoryNo=" + categoryNo);
-		return;
-	}
 	
 	// Meodel 호출
 	Category category = new Category();
@@ -30,11 +31,11 @@
 	
 	if(row == 1) {
 		System.out.println("수정성공");
-		response.sendRedirect(request.getContextPath()+"/admin/categoryList.jsp");
+		out.println("<script>alert('카테고리 수정 성공'); location.href='" + request.getContextPath() + "/admin/categoryList.jsp" + "';</script>");
 		return;
 	} else {
 		System.out.println("수정실패");
-		response.sendRedirect(request.getContextPath()+"/admin/categoryList.jsp");
+		out.println("<script>alert('카테고리 수정 실패'); location.href='" + request.getContextPath() + "/admin/categoryList.jsp" + "';</script>");
 		return;
 	}
 %>

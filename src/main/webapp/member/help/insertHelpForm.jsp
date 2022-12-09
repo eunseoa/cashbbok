@@ -58,7 +58,7 @@
 							<h4>문의 등록</h4>
 						</div>
 						<div class="card-body px-0 pt-0 pb-0">
-							<form action="<%=request.getContextPath() %>/help/insertHelpAction.jsp" method="post">
+							<form action="<%=request.getContextPath() %>/member/help/insertHelpAction.jsp" method="post">
 								<table>
 									<tr>
 										<td><input type="hidden" name="memberId" value="<%=loginMember.getMemberId() %>"></td>

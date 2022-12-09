@@ -7,7 +7,7 @@
 
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	
@@ -25,8 +25,12 @@
 	int row = memberDao.updateMemberLevel(member);
 	
 	if(row == 1) {
-		System.out.println("수정성공");
-		response.sendRedirect(request.getContextPath()+"/admin/member/memberList.jsp");
+		System.out.println("회원 레벨 수정 성공");
+		out.println("<script>alert('회원의 레벨을 수정했습니다'); location.href='" + request.getContextPath() + "/admin/member/memberList.jsp" + "';</script>");
+		return;
+	} else {
+		System.out.println("회원 레벨 수정 실패");
+		out.println("<script>alert('회원레벨 수정을 실패했습니다'); location.href='" + request.getContextPath() + "/admin/member/memberList.jsp" + "';</script>");
 		return;
 	}
 %>

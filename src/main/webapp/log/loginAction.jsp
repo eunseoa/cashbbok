@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.net.*" %>
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
 <%	
@@ -12,8 +13,9 @@
 	// 미입력시
 	if(request.getParameter("memberId") == null || request.getParameter("memberId").equals("")
 		|| request.getParameter("memberPw") == null || request.getParameter("memberPw").equals("")) {
-			System.out.println("미입력");
-			response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+			System.out.println("정보 미입력");
+			String mas = URLEncoder.encode("모든 항목을 입력해주세요", "utf-8");
+			response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp?msg=" + mas);
 			return;
 		}
 	
@@ -26,20 +28,22 @@
 	MemberDao memberDao = new MemberDao();
 	Member resultMember = memberDao.login(paramMember);
 	
-	// 로그인한 사용자의 level
-	int memberLevel = resultMember.getMemberLevel();
-	System.out.println(memberLevel);
-	
-	String redirectUrl = "/loginForm.jsp";
-	
 	if (resultMember != null) {
+		System.out.println("로그인 성공");
 		session.setAttribute("loginMember", resultMember); // session안에 로그인아이디, 이름 저장
+		int memberLevel = resultMember.getMemberLevel();
+		System.out.println(memberLevel);
 		if(memberLevel == 1) {
-			redirectUrl = "/cash/cashList.jsp"; // 1이면 관리자페이지로
+			response.sendRedirect(request.getContextPath() + "/cash/cashList.jsp");
+			return;// 관리자페이지로 이동
 		} else {
-			redirectUrl = "/cash/cashList.jsp"; // 0이면 가계부list로
+			response.sendRedirect(request.getContextPath() + "/cash/cashList.jsp");
+			return;// 일반회원페이지로 이동
 		}
+	} else {
+		String mas = URLEncoder.encode("아이디나 비밀번호가 올바르지않습니다", "utf-8");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp?msg=" + mas);
+		return;
 	}
-	
-	response.sendRedirect(request.getContextPath()+redirectUrl);
+
 %>

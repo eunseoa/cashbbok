@@ -13,9 +13,11 @@
 	
 	if(row == 1) {
 		System.out.println("카테고리 삭제 성공");
-		response.sendRedirect(request.getContextPath()+"/admin/category/categoryList.jsp");
+		out.println("<script>alert('카테고리 삭제 성공'); location.href='" + request.getContextPath() + "/admin/category/categoryList.jsp" + "';</script>");
+		return;
 	} else {
 		System.out.println("카테고리 삭제 실패");
-		response.sendRedirect(request.getContextPath()+"/admin/category/categoryList.jsp");
+		out.println("<script>alert('카테고리 삭제 실패'); location.href='" + request.getContextPath() + "/admin/category/categoryList.jsp" + "';</script>");
+		return;
 	}
 %>

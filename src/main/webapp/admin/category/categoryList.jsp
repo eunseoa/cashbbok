@@ -7,15 +7,13 @@
 	request.setCharacterEncoding("utf-8");
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	} 
 	
 	// Model 호출
 	CategoryDao categoryDao = new CategoryDao();
 	ArrayList<Category> categoryList = categoryDao.selectCategoryListbyAdmin();
-	
-	// 최근 공지 5개, 최근 멤버 5명 보여줌
 	
 	// View
 %>
@@ -73,8 +71,8 @@
 													<input type="text" name="categoryName" class="form-control" placeholder="">
 												</div>
 												<div class="modal-footer">
-													<button type="submit" class="btn bg-gradient-primary" data-bs-dismiss="modal">취소</button>
-													<button type="submit" class="btn bg-gradient-secondary">추가</button>
+													<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal" aria-label="Close">취소</button>
+													<button type="submit" class="btn bg-gradient-primary">추가</button>
 												</div>
 											</div>
 										</div>
@@ -104,7 +102,7 @@
 										<td><%=c.getCreatedate() %></td>
 										<td>
 											<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/admin/category/updateCategoryForm.jsp?categoryNo=<%=c.getCategoryNo() %>">
-												<i class="fas fa-pencil-alt text-dark"></i>
+												<i class="fas fa-pencil-alt text-dark"></i> <!-- modal로 처리 -->
 											</a>
 										</td>
 										<td>

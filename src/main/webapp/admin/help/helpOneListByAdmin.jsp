@@ -8,14 +8,13 @@
 
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	
-	if(request.getParameter("helpNo") == null) {
-		System.out.println(request.getParameter("helpNo"));
-	} else {
-		System.out.println(request.getParameter("helpNo"));
+	if(request.getParameter("helpNo") == null || request.getParameter("helpNo").equals("")) {
+		out.println("<script>alert('오류'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
 	}
 	
 	int helpNo = Integer.parseInt(request.getParameter("helpNo"));

@@ -78,7 +78,7 @@
 												<input type="password" name="memberPw" class="form-control" placeholder="비밀번호를 입력해주세요">
 											</div>
 											<div class="modal-footer">
-												<button type="submit" class="btn bg-gradient-primary" data-bs-dismiss="modal">아니오</button>
+												<button type="submit" class="btn bg-gradient-primary" data-bs-dismiss="modal" aria-label="Close">아니오</button>
 												<button type="submit" class="btn bg-gradient-secondary">탈퇴</button>
 											</div>
 										</div>

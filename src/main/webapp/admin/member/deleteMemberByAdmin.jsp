@@ -10,7 +10,7 @@
 
 	// 일반회원이거나 비로그인시 접근금지
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 
@@ -27,6 +27,12 @@
 	
 	// 삭제성공
 	if(deleteRow == 1) {
-		response.sendRedirect(request.getContextPath()+"/admin/member/memberList.jsp");
+		System.out.println("회원 탈퇴 성공");
+		out.println("<script>alert('회원을 강제로 탈퇴시켰습니다'); location.href='" + request.getContextPath() + "/admin/member/memberList.jsp" + "';</script>");
+		return;
+	} else {
+		System.out.println("회원 탈퇴 실패");
+		out.println("<script>alert('회원 강제탈퇴를 실패했습니다'); location.href='" + request.getContextPath() + "/admin/member/memberList.jsp" + "';</script>");
+		return;
 	}
 %>

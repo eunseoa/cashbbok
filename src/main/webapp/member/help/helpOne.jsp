@@ -106,7 +106,7 @@
 													for(HashMap<String, Object> m : helpList) {
 														if(m.get("commentCreatedate") == null && (Integer)m.get("helpNo") == helpNo) {
 												%>
-															<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="<%=request.getContextPath() %>/help/deleteHelp.jsp?helpNo=<%=helpNo %>">
+															<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="<%=request.getContextPath() %>/member/help/deleteHelp.jsp?helpNo=<%=helpNo %>">
 																<i class="far fa-trash-alt"></i>
 															</a>
 															<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/member/help/updateHelpForm.jsp?helpNo=<%=helpNo %>">

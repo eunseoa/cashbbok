@@ -7,14 +7,14 @@
 	request.setCharacterEncoding("utf-8");
 
 	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	
 	if(request.getParameter("year") == null || request.getParameter("year").equals("")
 		|| request.getParameter("month") == null || request.getParameter("month").equals("")
 		|| request.getParameter("date") == null || request.getParameter("date").equals("")) {
-		response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp");
+		out.println("<script>alert('오류'); location.href='" + request.getContextPath() + "/admin/cash/cashList.jsp" + "';</script>");
 		return;
 	}
 

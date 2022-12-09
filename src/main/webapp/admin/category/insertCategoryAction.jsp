@@ -8,8 +8,12 @@
 
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
+	}
+	
+	if(request.getParameter("categoryKind") == null || request.getParameter("categoryName") == null) {
+		out.println("<script>alert('모든 항목을 입력해주세요'); location.href='" + request.getContextPath() + "/admin/category/categoryList.jsp" + "';</script>");
 	}
 	
 	String categoryKind = request.getParameter("categoryKind");
@@ -25,11 +29,11 @@
 	
 	if(row == 1) {
 		System.out.println("추가 성공");
-		response.sendRedirect(request.getContextPath()+"/admin/category/categoryList.jsp");
+		out.println("<script>alert('카테고리가 추가되었습니다'); location.href='" + request.getContextPath() + "/admin/category/categoryList.jsp" + "';</script>");
 		return;
 	} else {
 		System.out.println("추가 실패");
-		response.sendRedirect(request.getContextPath()+"/admin/category/categoryList.jsp");
+		out.println("<script>alert('카테고리 추가에 실패했습니다'); location.href='" + request.getContextPath() + "/admin/category/categoryList.jsp" + "';</script>");
 		return;
 	}
 %>

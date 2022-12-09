@@ -9,7 +9,7 @@
 	// 비로그인, 일반회원 접근 금지
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
 	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	
