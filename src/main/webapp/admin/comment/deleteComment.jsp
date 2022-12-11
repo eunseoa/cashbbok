@@ -4,11 +4,11 @@
 <%
 	// Controller
 	request.setCharacterEncoding("utf-8");
-
-	// 비로그인 접근금지
-	Member loginMember = (Member)(session.getAttribute("loginMember"));
-	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+	
+	// 삭제할 댓글의 정봅가 넘어오지않았을때
+	if(request.getParameter("helpNo") == null || request.getParameter("helpNo").equals("")
+		|| request.getParameter("commentNo") == null || request.getParameter("commentNo").equals("")) { //
+		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	

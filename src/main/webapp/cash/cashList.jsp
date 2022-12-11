@@ -5,6 +5,8 @@
 <%
 	// Controller : session, rquest
 	request.setCharacterEncoding("utf-8");
+
+	// 비로그인시 접근금지
 	if(session.getAttribute("loginMember") == null) {
 		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
@@ -103,12 +105,90 @@
 				</div>
 			</nav>
 			<div class="container-fluid py-4">
-				<div class="card" style="height: 1035px;">
+				<div class="row">
+					<div class="col-xl-3 col-sm-6">
+						<div class="card">
+							<div class="card-body p-3">
+								<div class="row">
+									<div class="col-9">
+										<div class="numbers">
+											<p class="text-sm mb-0 text-uppercase font-weight-bold"><%=month + 1 %>월 총 수입</p>
+											<h5 class="font-weight-bolder">100원</h5>
+										</div>
+									</div>
+									<div class="col-3 text-end">
+										<div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+											<i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6">
+						<div class="card">
+							<div class="card-body p-3">
+								<div class="row">
+									<div class="col-9">
+										<div class="numbers">
+											<p class="text-sm mb-0 text-uppercase font-weight-bold"><%=month + 1 %>월 총 지출</p>
+											<h5 class="font-weight-bolder">100원</h5>
+										</div>
+									</div>
+									<div class="col-3 text-end">
+										<div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+											<i class="ni ni-credit-card text-lg opacity-10" aria-hidden="true"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6">
+						<div class="card">
+							<div class="card-body p-3">
+								<div class="row">
+									<div class="col-9">
+										<div class="numbers">
+											<p class="text-sm mb-0 text-uppercase font-weight-bold"><%=month + 1 %>월 총 저축</p>
+											<h5 class="font-weight-bolder">100원</h5>
+										</div>
+									</div>
+									<div class="col-3 text-end">
+										<div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+											<i class="ni ni-favourite-28 text-lg opacity-10" aria-hidden="true"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6">
+						<div class="card">
+							<div class="card-body p-3">
+								<div class="row">
+									<div class="col-9">
+										<div class="numbers">
+											<p class="text-sm mb-0 text-uppercase font-weight-bold">많이 사용한 카테고리</p>
+											<h5 class="font-weight-bolder">$103,430</h5>
+										</div>
+									</div>
+									<div class="col-3 text-end">
+										<div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+											<i class="ni ni-bullet-list-67 text-lg opacity-10" aria-hidden="true"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card mt-4" style="height: 1035px;">
 					<div class="card-header pb-0">
 						<div class="pb-4">
-							<a href="<%=request.getContextPath() %>/cash/cashList.jsp?year=<%=year %>&month=<%=month-1 %>"><i class="ni ni-bold-left"></i></a>
-							<%=year %>년 <%=month+1 %>월
-							<a href="<%=request.getContextPath() %>/cash/cashList.jsp?year=<%=year %>&month=<%=month+1 %>"><i class="ni ni-bold-right"></i></a>
+							<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month - 1%>"><i class="ni ni-bold-left"></i></a>
+							<%=year%>년 <%=month + 1%>월
+							<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month + 1%>"><i class="ni ni-bold-right"></i></a>
 						</div>
 						<div class="card-body px-0 pt-0 pb-0">
 							<table class="table align-items-center mb-0">
@@ -142,8 +222,17 @@
 																for(HashMap<String, Object> m : list) {
 																	String cashDate = (String)(m.get("cashDate"));
 																	if(Integer.parseInt(cashDate.substring(8)) == date) {
+																		if(m.get("categoryKind").equals("수입")) {
 															%>
-																			[<%=(String)m.get("categoryKind") %>]
+																			<i class="ni ni-fat-add" style="color: #6799FF"></i>
+															<%
+																		} else {
+															%>
+																			<i class="ni ni-fat-delete" style="color: #FF7E7E"></i>
+															<%
+																		}
+															%>
+																			
 																			<%=(String)m.get("categoryName") %>
 																			&nbsp;
 																			<%=(Long)m.get("cashPrice") %>원

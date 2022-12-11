@@ -34,10 +34,10 @@
 		int memberLevel = resultMember.getMemberLevel();
 		System.out.println(memberLevel);
 		if(memberLevel == 1) {
-			response.sendRedirect(request.getContextPath() + "/cash/cashList.jsp");
+			response.sendRedirect(request.getContextPath() + "/admin/adminMain.jsp");
 			return;// 관리자페이지로 이동
 		} else {
-			response.sendRedirect(request.getContextPath() + "/cash/cashList.jsp");
+			response.sendRedirect(request.getContextPath() + "/member/memberMain.jsp");
 			return;// 일반회원페이지로 이동
 		}
 	} else {

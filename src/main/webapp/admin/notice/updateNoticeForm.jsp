@@ -2,17 +2,32 @@
 <%@ page import="dao.*" %>
 <%@ page import="vo.*" %>
 <%
+	// Controller
+	request.setCharacterEncoding("utf-8");
+
 	//로그인 정보 저장
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
 
-	// 비로그인, 일반회원 접근금지
-	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
+	//비로그인, 일반회원 접근금지
+	if(loginMember == null) { // 로그인이 안되어있으면
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	} else if(loginMember.getMemberLevel() < 1) { // 비로그인시
+		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	}
+	
+	// 수정할 공지의 정보를 받지않았을때
+	if(request.getParameter("noticeNo") == null || request.getParameter("noticeNo").equals("")) {
+		out.println("<script>alert('오류'); location.href='" + request.getContextPath() + "/notice/noticeList.jsp" + "';</script>");
 		return;
 	}
 
 	// 공지 번호
 	String noticeNo = request.getParameter("noticeNo");
+	
+	// 내용 미입력시 띄울 경고창
+	String msg = request.getParameter("msg");
 	
 	// Model
 	NoticeDao noticeDao = new NoticeDao();
@@ -70,6 +85,21 @@
 									<form action="<%=request.getContextPath() %>/admin/notice/updateNoticeAction.jsp" method="post">
 										<div class="d-flex flex-column" style="width:1450px;">
 											<table>
+												<tr>
+													<td colspan="2">
+													<%
+														if(msg != null) {
+													%>
+															<p style="color: red"><%=msg %></p>
+													<%
+														} else {
+													%>
+													
+													<%
+														}
+													%>
+													</td>
+												</tr>
 												<tr>
 													<th>제목</th>
 													<td>

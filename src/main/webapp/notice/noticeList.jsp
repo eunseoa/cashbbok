@@ -6,18 +6,25 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 	
-	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
-		return;
-	} 
-	
+	//로그인 정보 저장
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	
+	// 접근금지
+	if(loginMember == null) { // 비로그인시
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	} else if(loginMember.getMemberLevel() < 1) { // 일반회원일 경우
+		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	}
+	
+	// 페이징
 	int currentPage = 1;
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
+	// 한 페이지당 보일 행의 수
 	int rowPerPage = 10;
 	int beginRow = (currentPage - 1) * rowPerPage;
 	
@@ -31,7 +38,6 @@
 	if(lastPage % rowPerPage != 0) {
 		lastPage++;
 	}
-	
 	
 	// View
 %>
@@ -122,36 +128,45 @@
 								<%
 									}
 								%>
-								<tr>
-									<td colspan="4">
-									<%
-										if(currentPage != 0) {
-									%>
-											<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=1">처음</a>
-									<%
-										}
-									
-										if (currentPage > 1) {
-									%>
-											<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=<%=currentPage - 1 %>">이전</a>
-									<%
-										}
-									
-										if (currentPage < lastPage) {
-									%>
-											<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=<%=currentPage + 1 %>">다음</a>
-									<%
-										}
-									
-										if (lastPage != 0) {
-									%>
-											<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=<%=lastPage %>">마지막</a>
-									<%
-										}
-									%>
-									</td>
-								</tr>
 							</table>
+							<div>
+								<%
+								if (currentPage != 0) {
+								%>
+										<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=1">&lt;&lt;&nbsp;</a>
+								<%
+									}
+								
+									if (currentPage > 1) {
+								%>
+										<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=<%=currentPage - 1 %>">&lt;&nbsp;</a>
+								<%
+									} else {
+								%>
+										<a class="disable">&lt;&nbsp;</a>
+								<%
+									}
+								%>
+										<%=currentPage %>
+								<%
+								
+									if (currentPage < lastPage) {
+								%>
+										<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=<%=currentPage + 1 %>">&gt;&nbsp;</a>
+								<%
+									} else {
+								%>
+										<a class="disable">&gt;&nbsp;</a>
+								<%
+									}
+								
+									if (lastPage != 0) {
+								%>
+										<a href="<%=request.getContextPath() %>/notice/noticeList.jsp?currentPage=<%=lastPage %>">&gt;&gt;</a>
+								<%
+									}
+								%>
+							</div>
 						</div>
 					</div>
 				</div>

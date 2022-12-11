@@ -5,11 +5,6 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 	
-	if(session.getAttribute("loginMember") == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
-		return;
-	}
-	
 	String memberId = request.getParameter("memberId");
 	String memberName = request.getParameter("memberName");
 	String memberPw = request.getParameter("memberPw");
@@ -21,6 +16,7 @@
 	paramMember.setMemberPw(memberPw);
 	
 	MemberDao memberDao = new MemberDao();
+	// 정보 수정 후 새션에 저장
 	Member updateMember = memberDao.updateMember(paramMember);
 	session.setAttribute("loginMember", updateMember);
 	

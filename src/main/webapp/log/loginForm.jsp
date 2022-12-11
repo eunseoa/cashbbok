@@ -88,25 +88,26 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+						<div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 justify-content-center flex-column">
 							<div class="position-relative h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
-								<table>
-									<tr>
-										<th>최근 공지 내용</th>
-										<th>등록 일자</th>
-									</tr>
-									<%
-										for (Notice n : list) {	
-											String createdate = (String)(n.getCreatedate());
-									%>
-										<tr>
-											<td><a href="<%=request.getContextPath() %>/notice/noticeOne.jsp?noticeNo=<%=n.getNoticeNo() %>"><%=n.getNoticeTitle() %></a></td>
-											<td><%=createdate.substring(0, 10)%></td>
-										</tr>
-									<%
-										}
-									%>
-								</table>
+								<ul class="list-group" style="width: 600px">
+								<%
+									for(Notice n : list) {
+										String createdate = (String)(n.getCreatedate());
+								%>
+										<li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+											<div class="d-flex flex-column">
+												<h6 class="mb-1 text-dark font-weight-bold text-m">
+													<%=n.getNoticeTitle() %>
+												</h6>
+												<span class="text-s"><%=n.getNoticeMemo() %></span>
+												<span class="text-xs"><%=createdate.substring(0, 10)%></span>
+											</div>
+										</li>
+								<%
+									}
+								%>
+								</ul>
 							</div>
 						</div>
 					</div>

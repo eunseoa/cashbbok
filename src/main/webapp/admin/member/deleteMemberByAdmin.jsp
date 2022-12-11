@@ -4,15 +4,6 @@
 <%
 	// Controller
 	request.setCharacterEncoding("utf-8");
-	
-	// 로그인 멤버 저장
-	Member loginMember = (Member)session.getAttribute("loginMember");
-
-	// 일반회원이거나 비로그인시 접근금지
-	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
-		return;
-	}
 
 	// 삭제할 회원의 no 받아오기
 	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
@@ -28,7 +19,7 @@
 	// 삭제성공
 	if(deleteRow == 1) {
 		System.out.println("회원 탈퇴 성공");
-		out.println("<script>alert('회원을 강제로 탈퇴시켰습니다'); location.href='" + request.getContextPath() + "/admin/member/memberList.jsp" + "';</script>");
+		response.sendRedirect(request.getContextPath() + "/admin/member/memberList.jsp");
 		return;
 	} else {
 		System.out.println("회원 탈퇴 실패");

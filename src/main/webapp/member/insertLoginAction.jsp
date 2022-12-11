@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="vo.*" %>
+<%@ page import="java.net.*" %>
 <%@ page import="dao.*" %>
+<%@ page import="vo.*" %>
 <%
 	// Controller
 	request.setCharacterEncoding("utf-8");
 
+	// 내용 미입력시
 	if(request.getParameter("memberId") == null || request.getParameter("memberId").equals("")
 		|| request.getParameter("memberPw") == null || request.getParameter("memberPw").equals("")
 		|| request.getParameter("memberName") == null || request.getParameter("memberName").equals("")) {
-		out.println("<script>alert('내용을 입력해주세요'); location.href='" + request.getContextPath()+"/member/insertLoginForm.jsp" + "';</script>");
+		String msg = URLEncoder.encode("입력되지않은 항목이 있습니다", "utf-8");
+		response.sendRedirect(request.getContextPath() + "/member/insertLoginForm.jsp?msg=" + msg);
 		return;
 	}
 
@@ -26,7 +29,8 @@
 	// 아이디가 중복이면
 	if(memberDao.selectMemberIdCk(memberId)) {
 		System.out.println("중복아이디");
-		out.println("<script>alert('아이디가 중복됩니다'); location.href='" + request.getContextPath()+"/member/insertLoginForm.jsp" + "';</script>");
+		String msg = URLEncoder.encode("사용할 수 없는 아이디입니다", "utf-8");
+		response.sendRedirect(request.getContextPath() + "/member/insertLoginForm.jsp?msg=" + msg);
 		return;
 	}
 	

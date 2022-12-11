@@ -5,13 +5,9 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 
-	// 비로그인시 접근금지
+	//로그인 정보 저장
 	Member loginMember = (Member)session.getAttribute("loginMember");
-	if(loginMember == null) {
-		response.sendRedirect(request.getContextPath()+"//log/loginForm.jsp");
-		return;
-	}
-	
+
 	// cashNo 안넘어오면
 	if(request.getParameter("cashNo") == null || request.getParameter("cashNo").equals("")) {
 		response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp");
@@ -40,7 +36,7 @@
 		return;
 	} else {
 		System.out.println("삭제실패");
-		response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp?year=" + year + "&month=" + month + "&date=" + date);
+		out.println("<script>alert('삭제에 실패했습니다'); location.href='" + request.getContextPath() +"/cash/cashDateList.jsp?year=" + year + "&month=" + month + "&date=" + date + "';</script>");
 		return;
 	}
 %>

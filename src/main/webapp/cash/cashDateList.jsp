@@ -6,11 +6,13 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 
+	// 비로그인시 접근금지
 	if(session.getAttribute("loginMember") == null) {
 		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	
+	// 날짜의 정보를 받지않았을때
 	if(request.getParameter("year") == null || request.getParameter("year").equals("")
 		|| request.getParameter("month") == null || request.getParameter("month").equals("")
 		|| request.getParameter("date") == null || request.getParameter("date").equals("")) {
@@ -113,30 +115,30 @@
 								for(HashMap<String, Object> m : list) {
 									String cashDate = (String)m.get("cashDate");
 									System.out.println(cashDate);
-									if(Integer.parseInt(cashDate.substring(8)) == date) {
-									int cashNo = (Integer)(m.get("cashNo"));
-									System.out.println(cashNo);
-									int categoryNo = (Integer)(m.get("categoryNo"));
-									System.out.println(categoryNo); 
+										if(Integer.parseInt(cashDate.substring(8)) == date) {
+											int cashNo = (Integer)(m.get("cashNo"));
+											System.out.println(cashNo);
+											int categoryNo = (Integer)(m.get("categoryNo"));
+											System.out.println(categoryNo); 
 							%>
-								<ul class="list-group">
-									<li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-										<div class="d-flex flex-column" style="width:500px;">
-											<h6 class="mb-3 text-sm"><%=(String)(m.get("categoryKind")) %></h6>
-											<span class="mb-2 text-sm">categoryName: <span class="text-dark font-weight-bold ms-sm-2"><%=(String)(m.get("categoryName")) %></span></span>
-											<span class="mb-2 text-sm">cashPrice <span class="text-dark ms-sm-2 font-weight-bold"><%=(Long)(m.get("cashPrice")) %>원</span></span>
-											<span class="mb-2 text-sm">memo <span class="text-dark ms-sm-2 font-weight-bold"><%=(String)(m.get("cashMemo")) %></span></span>
-										</div>
-										<div class="ms-auto text-end">
-											<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="<%=request.getContextPath() %>/cash/deleteCashAction.jsp?cashNo=<%=cashNo %>&categoryNo=<%=categoryNo %>&year=<%=year %>&month=<%=month %>&date=<%=date %>">
-												<i class="far fa-trash-alt"></i>
-											</a>
-											<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/cash/updateCashForm.jsp?cashNo=<%=cashNo %>&categoryNo=<%=categoryNo %>&year=<%=year %>&month=<%=month %>&date=<%=date %>">
-												<i class="fas fa-pencil-alt text-dark"></i>
-											</a>
-										</div>
-									</li>
-								</ul>
+											<ul class="list-group">
+												<li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+													<div class="d-flex flex-column" style="width:500px;">
+														<h6 class="mb-3 text-sm"><%=(String)(m.get("categoryKind")) %></h6>
+														<span class="mb-2 text-sm">categoryName <span class="text-dark font-weight-bold ms-sm-2"><%=(String)(m.get("categoryName")) %></span></span>
+														<span class="mb-2 text-sm">cashPrice <span class="text-dark ms-sm-2 font-weight-bold"><%=(Long)(m.get("cashPrice")) %>원</span></span>
+														<span class="mb-2 text-sm">memo <span class="text-dark ms-sm-2 font-weight-bold"><%=(String)(m.get("cashMemo")) %></span></span>
+													</div>
+													<div class="ms-auto text-end">
+														<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="<%=request.getContextPath() %>/cash/deleteCashAction.jsp?cashNo=<%=cashNo %>&categoryNo=<%=categoryNo %>&year=<%=year %>&month=<%=month %>&date=<%=date %>">
+															<i class="far fa-trash-alt"></i>
+														</a>
+														<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/cash/updateCashForm.jsp?cashNo=<%=cashNo %>&categoryNo=<%=categoryNo %>&year=<%=year %>&month=<%=month %>&date=<%=date %>">
+															<i class="fas fa-pencil-alt text-dark"></i>
+														</a>
+													</div>
+												</li>
+											</ul>
 							<%
 									}
 								}

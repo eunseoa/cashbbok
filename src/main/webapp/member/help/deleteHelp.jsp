@@ -5,15 +5,21 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 
-	// 비로그인시 접근금지
+	//로그인 정보 저장
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
-	if(loginMember == null || loginMember.getMemberLevel() > 0){ // 관리자가 문의 임의 삭제 방지
-		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/loginForm.jsp" + "';</script>");
+	
+	//접근금지
+	if(loginMember == null) { // 비로그인시
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	} else if(loginMember.getMemberLevel() == 1) { // 관리자가 임의로 삭제 방지
+		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	
+	// 삭제할 문의 값을 받지 못했을때
 	if (request.getParameter("helpNo") == null || loginMember.getMemberId() == null) {
-		out.println("<script>alert('오류'); location.href='" + request.getContextPath() + "/member/help/helpMain.jsp" + "';</script>");
+		response.sendRedirect(request.getContextPath()+"/member/help/helpMain.jsp");
 		return;
 	}
 	
@@ -25,11 +31,11 @@
 	int row = helpDao.deleteHelp(memberId, helpNo);
 	
 	if(row == 1) {
-		System.out.println("삭제성공");
-		out.println("<script>alert('문의를 삭제했습니다'); location.href='" + request.getContextPath() + "/member/help/helpMain.jsp" + "';</script>");
+		System.out.println("문의 삭제 성공");
+		response.sendRedirect(request.getContextPath()+"/member/help/helpMain.jsp");
 		return;
 	} else {
-		System.out.println("삭제실패");
+		System.out.println("문의 삭제 실패");
 		out.println("<script>alert('문의삭제에 실패했습니다'); location.href='" + request.getContextPath() + "/member/help/helpMain.jsp" + "';</script>");
 		return;
 	}

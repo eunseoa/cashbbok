@@ -6,12 +6,19 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 
+	// 로그인 정보 저장
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
-	if(loginMember == null || loginMember.getMemberLevel() < 1) {
+	
+	//접근금지
+	if(loginMember == null) { // 비로그인시
 		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	} else if(loginMember.getMemberLevel() < 1) { // 일반회원일 경우
+		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	
+	// 확인할 문의의 정보가 넘어오지않았을때
 	if(request.getParameter("helpNo") == null || request.getParameter("helpNo").equals("")) {
 		out.println("<script>alert('오류'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
@@ -23,9 +30,11 @@
 	Help help = new Help();
 	help.setHelpNo(helpNo);
 	
+	// 문의 상세정보 리스트
 	HelpDao helpDao = new HelpDao();
 	Help helpOne = helpDao.selectHelpOne(helpNo);
 	
+	// 문의 답변 리스트
 	CommentDao commentDao = new CommentDao();
 	ArrayList<HashMap<String, Object>> commentList = commentDao.selectCommentList(helpNo);
 %>

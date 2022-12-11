@@ -4,17 +4,11 @@
 <%
 	// Controller
 	request.setCharacterEncoding("utf-8");
-
-	// 접근금지
-	Member loginMember = (Member)session.getAttribute("loginMember");
-	if(loginMember == null || loginMember.getMemberLevel() < 1) {
-		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
-		return;
-	}
 	
+	// 수정할 카테고리의 정보가 넘어오지않았을때
 	if(request.getParameter("categoryNo") == null || request.getParameter("categoryNo").equals("")
 		|| request.getParameter("categoryName") == null || request.getParameter("categoryName").equals("")) {
-		out.println("<script>alert('오류'); location.href='" + request.getContextPath() + "/admin/category/updateCategoryForm.jsp?" + "';</script>");
+		out.println("<script>alert(''); location.href='" + request.getContextPath() + "/admin/category/updateCategoryForm.jsp?" + "';</script>");
 		return;
 	}
 	
@@ -31,7 +25,7 @@
 	
 	if(row == 1) {
 		System.out.println("수정성공");
-		out.println("<script>alert('카테고리 수정 성공'); location.href='" + request.getContextPath() + "/admin/categoryList.jsp" + "';</script>");
+		response.sendRedirect(request.getContextPath() + "/admin/category/categoryList.jsp");
 		return;
 	} else {
 		System.out.println("수정실패");

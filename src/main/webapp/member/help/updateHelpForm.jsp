@@ -5,19 +5,29 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 
-	// 비로그인 접근금지
+	//로그인 정보 저장
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
-	if(loginMember == null || loginMember.getMemberLevel() > 0) { // 관리자가 고객문의 임의로 수정 방지
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+	
+	//접근금지
+	if(loginMember == null) { // 비로그인시
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	} else if(loginMember.getMemberLevel() == 1) { // 관리자가 임의로 고객 문의 수정 방지
+		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
 	
 	int helpNo = Integer.parseInt(request.getParameter("helpNo"));
 	String memberId = loginMember.getMemberId();
 	
+	// 내용 미입력시 경고창 출력
+	String msg = request.getParameter("msg");
+	
 	// Model 호출
 	Help help = new Help();
 	HelpDao helpDao = new HelpDao();
+	
+	// 업데이트할 정보 출력
 	Help helpOne = helpDao.selectUpdateHelp(helpNo);
 %>
 <!DOCTYPE html>
@@ -72,6 +82,21 @@
 									<form action="<%=request.getContextPath() %>/member/help/updateHelpAction.jsp" method="post">
 										<div class="d-flex flex-column" style="width:1450px;">
 											<table>
+												<tr>
+													<td colspan="2">
+													<%
+														if(msg != null) {
+													%>
+															<%=msg %>
+													<%
+														} else {
+													%>
+															&nbsp;
+													<%
+														}
+													%>
+													</td>
+												</tr>
 												<tr>
 													<td><input type="hidden" name="helpNo" value="<%=helpOne.getHelpNo() %>" readonly="readonly"></td>
 												</tr>

@@ -11,6 +11,13 @@
 		return;
 	}
 	
+	// 수정할 멤버의 정보가 넘어오지않았을때
+	if(request.getParameter("memberNo") == null || request.getParameter("memberNo") == null
+		|| request.getParameter("changeLevel").equals("") || request.getParameter("changeLevel").equals("")) {
+		out.println("<script>alert('오류'); location.href='" + request.getContextPath() + "/admin/category/categoryList.jsp" + "';</script>");
+		return;
+	}
+	
 	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 	int changeLevel = Integer.parseInt(request.getParameter("changeLevel"));
 	System.out.println(memberNo);
@@ -26,7 +33,7 @@
 	
 	if(row == 1) {
 		System.out.println("회원 레벨 수정 성공");
-		out.println("<script>alert('회원의 레벨을 수정했습니다'); location.href='" + request.getContextPath() + "/admin/member/memberList.jsp" + "';</script>");
+		response.sendRedirect(request.getContextPath()+"/admin/member/memberList.jsp");
 		return;
 	} else {
 		System.out.println("회원 레벨 수정 실패");

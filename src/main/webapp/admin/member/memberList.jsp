@@ -5,24 +5,36 @@
 <%
 	// Controller
 	request.setCharacterEncoding("utf-8");
+
+	// 로그인 정보 저장
 	Member loginMember = (Member)session.getAttribute("loginMember");
-	if(loginMember == null || loginMember.getMemberLevel() < 1) {
+	
+	//접근금지
+	if(loginMember == null) { // 비로그인시
 		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
-	} 
+	} else if(loginMember.getMemberLevel() < 1) { // 일반회원일 경우
+		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	}
 	
+	// 페이징
 	int currentPage = 1;
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
+	// 한 페이지당 보여줄 행의 수
 	int rowPerPage = 10;
 	int beginRow = (currentPage - 1) * rowPerPage;
 	
 	// Model 호출
 	MemberDao memberDao = new MemberDao();
+	
+	// 현재 멤버 페이지 리스트 출력
 	ArrayList<Member> list = memberDao.selectMemberByPage(beginRow, rowPerPage);
 	
+	// 현재 멤버 수
 	int memberCnt = memberDao.selectMembetCount();
 	
 	// View

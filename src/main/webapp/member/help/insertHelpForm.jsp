@@ -5,11 +5,21 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 
+	// 로그인 정보 저장
 	Member loginMember = (Member)(session.getAttribute("loginMember"));
-	if(loginMember == null) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+	
+	
+	//접근금지
+	if(loginMember == null) { // 비로그인시
+		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	} else if(loginMember.getMemberLevel() == 1) { // 관리자 접근 금지
+		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
 	}
+	
+	// 내용 미입력시 경고창 출력
+	String msg = request.getParameter("msg");
 %>
 <!DOCTYPE html>
 <html>
@@ -39,17 +49,7 @@
 	</head>
 	<body class="g-sidenav-show bg-gray-100">
 		<div class="min-height-300 bg-primary position-absolute w-100"></div>
-		<%
-			if (loginMember.getMemberLevel() == 1) {
-		%>
-				<jsp:include page="/inc/sidebarByAdmin.jsp"></jsp:include>
-		<%
-			} else {
-		%>
-				<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
-		<%
-			}
- 		%>
+		<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
 		<main class="main-content border-radius-lg">
 			<div class="container-fluid py-4">
 				<div class="card" style="height: 950px;">

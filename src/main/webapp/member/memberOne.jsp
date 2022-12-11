@@ -6,6 +6,7 @@
 	// Controller
 	request.setCharacterEncoding("utf-8");
 	
+	// 비로그인시 접근금지
 	if(session.getAttribute("loginMember") == null) {
 		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
@@ -101,8 +102,6 @@
 										</div>
 										<div class="col-6 text-end">
 											<button class="btn bg-gradient-primary btn-sm" type="submit">정보 수정</button>
-											<a class="btn bg-gradient-primary btn-sm" href="<%=request.getContextPath() %>/member/deleteMemberForm.jsp">회원 탈퇴</a> <!-- modal로 구현 -->
-											
 										</div>
 									</div>
 									<div class="card-body">

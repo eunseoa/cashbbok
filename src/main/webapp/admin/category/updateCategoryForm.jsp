@@ -28,6 +28,7 @@
 	
 	// Model 호출
 	CategoryDao categoryDao = new CategoryDao();
+	
 	// 수정할 카테고리 내용 출력
 	Category category = categoryDao.selectCategoryOne(categoryNo);
 	
@@ -105,7 +106,7 @@
 							<div class="card-header pb-0 px-3">
 								<div class="row">
 									<div class="col-md-6">
-										<h6 class="mb-0">CategoryList</h6>
+										<h6 class="mb-0">현재 카테고리</h6>
 									</div>
 								</div>	
 							</div>

@@ -19,7 +19,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath() %>/admin/adminMain.jsp">
 						<span class="icon">
-						<i class="ni ni-favourite-28 text-primary text-sm opacity-10"></i>
+						<i class="ni ni-favourite-28 text-sm opacity-10" style="color: #4641D9"></i>
 						</span>
 						<span class="nav-link-text ms-1">Main</span>
 					</a>
@@ -27,7 +27,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath() %>/cash/cashList.jsp">
 						<span class="icon">
-							<i class="ni ni-calendar-grid-58 text-primary text-sm opacity-10"></i>
+							<i class="ni ni-money-coins text-sm opacity-10" style="color: #6B66FF"></i>
 						</span>
 						<span class="nav-link-text ms-1">CashBook</span>
 					</a>
@@ -35,7 +35,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath() %>/admin/help/helpListAll.jsp">
 						<span class="icon">
-							<i class="ni ni-chat-round text-secondary text-sm opacity-10"></i>
+							<i class="ni ni-chat-round text-sm opacity-10" style="color: #B5B2FF"></i>
 						</span>
 						<span class="nav-link-text ms-1">Q &amp; A</span>
 					</a>
@@ -43,7 +43,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath() %>/notice/noticeList.jsp">
 						<span class="icon">
-							<i class="ni ni-single-copy-04 text-secondary text-sm opacity-10"></i>
+							<i class="ni ni-archive-2 text-sm opacity-10" style="color: #4374D9"></i>
 						</span>
 						<span class="nav-link-text ms-1">Notice</span>
 					</a>
@@ -51,7 +51,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath() %>/admin/category/categoryList.jsp">
 						<span class="icon">
-							<i class="ni ni-bullet-list-67 text-secondary text-sm opacity-10"></i>
+							<i class="ni ni-bullet-list-67 text-sm opacity-10" style="color: #6799FF"></i>
 						</span>
 						<span class="nav-link-text ms-1">Category</span>
 					</a>
@@ -59,7 +59,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath() %>/admin/member/memberList.jsp">
 						<span class="icon">
-							<i class="ni ni-ui-04 text-secondary text-sm opacity-10"></i>
+							<i class="ni ni-ui-04 text-sm opacity-10" style="color: #B2CCFF"></i>
 						</span>
 						<span class="nav-link-text ms-1">Member</span>
 					</a>

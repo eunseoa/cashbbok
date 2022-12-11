@@ -152,7 +152,7 @@ public class NoticeDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		// 공지 출력
-		String sql = "SELECT notice_no noticeNo, notice_title noticeTitle, createdate FROM notice ORDER BY createdate DESC LIMIT ?, ?";
+		String sql = "SELECT notice_no noticeNo, notice_title noticeTitle, notice_memo noticeMemo, createdate FROM notice ORDER BY createdate DESC LIMIT ?, ?";
 		
 		// 예외출력
 		try {
@@ -166,6 +166,7 @@ public class NoticeDao {
 				Notice n = new Notice();
 				n.setNoticeNo(rs.getInt("noticeNo"));
 				n.setNoticeTitle(rs.getString("noticeTitle"));
+				n.setNoticeMemo(rs.getString("noticeMemo"));
 				n.setCreatedate(rs.getString("createdate"));
 				list.add(n);
 			}
