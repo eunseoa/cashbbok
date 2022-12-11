@@ -5,11 +5,21 @@
 <%
 	// Controller
 	request.setCharacterEncoding("utf-8");
+
+	// 로그인 정보 저장
 	Member loginMember = (Member)session.getAttribute("loginMember");
-	if(loginMember == null || loginMember.getMemberLevel() < 1) {
+	
+	// 접근금지
+	if(loginMember == null) { // 비로그인시
 		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
-	} 
+	} else if(loginMember.getMemberLevel() < 1) { // 일반회원일 경우
+		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
+		return;
+	}
+	
+	// 추가할때 폼 미입력시 메세지출력
+	String msg = request.getParameter("msg");
 	
 	// Model 호출
 	CategoryDao categoryDao = new CategoryDao();
@@ -21,7 +31,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>CategoryList</title>
 		<link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.ico">
 		<link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
 		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
@@ -63,12 +73,23 @@
 													<h5 class="modal-title" id="exampleModalLabel">Category 추가</h5>
 												</div>
 												<div class="modal-body">
-													<select name="categoryKind" class="form-control">
+													<select name="categoryKind" class="form-select">
 														<option value="수입">수입</option>
 														<option value="지출">지출</option>
 													</select>
 													<br>
 													<input type="text" name="categoryName" class="form-control" placeholder="">
+													<%
+														if(msg != null) {
+													%>
+															<span><%=msg %></span>
+													<%
+														} else {
+													%>
+															&nbsp;
+													<%
+														}
+													%>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal" aria-label="Close">취소</button>
@@ -102,7 +123,7 @@
 										<td><%=c.getCreatedate() %></td>
 										<td>
 											<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/admin/category/updateCategoryForm.jsp?categoryNo=<%=c.getCategoryNo() %>">
-												<i class="fas fa-pencil-alt text-dark"></i> <!-- modal로 처리 -->
+												<i class="fas fa-pencil-alt text-dark"></i>
 											</a>
 										</td>
 										<td>

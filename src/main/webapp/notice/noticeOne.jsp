@@ -77,7 +77,7 @@
 						<div class="card-body px-0 pt-0 pb-0 text-center">
 							<ul class="list-group">
 								<li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-									<div class="d-flex flex-column" style="width:1250px;">
+									<div class="d-flex flex-column" style="width:1200px;">
 										<table>
 											<tr>
 												<th>제목</th>
@@ -97,10 +97,10 @@
 										<% 
 											if(loginMember.getMemberLevel() == 1) {
 										%>
-											<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="<%=request.getContextPath() %>/admin/deleteNoticeAction.jsp?noticeNo=<%=noticeOne.getNoticeNo() %>">
+											<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="<%=request.getContextPath() %>/admin/notice/deleteNoticeAction.jsp?noticeNo=<%=noticeOne.getNoticeNo() %>">
 												<i class="far fa-trash-alt"></i>
 											</a>
-											<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/admin/updateNoticeForm.jsp?noticeNo=<%=noticeOne.getNoticeNo() %>">
+											<a class="btn btn-link text-dark px-3 mb-0" href="<%=request.getContextPath() %>/admin/notice/updateNoticeForm.jsp?noticeNo=<%=noticeOne.getNoticeNo() %>">
 												<i class="fas fa-pencil-alt text-dark"></i>
 											</a>
 										<%

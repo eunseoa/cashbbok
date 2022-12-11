@@ -13,7 +13,7 @@
 	
 	if(row == 1) {
 		System.out.println("카테고리 삭제 성공");
-		out.println("<script>alert('카테고리 삭제 성공'); location.href='" + request.getContextPath() + "/admin/category/categoryList.jsp" + "';</script>");
+		response.sendRedirect(request.getContextPath() + "/admin/category/categoryList.jsp");
 		return;
 	} else {
 		System.out.println("카테고리 삭제 실패");

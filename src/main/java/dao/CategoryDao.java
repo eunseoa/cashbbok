@@ -165,7 +165,7 @@ public class CategoryDao {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
-			String sql = "SELECT category_no categoryNo, category_name categoryName FROM category WHERE category_no = ?";
+			String sql = "SELECT category_no categoryNo, category_kind categoryKind, category_name categoryName FROM category WHERE category_no = ?";
 			
 			// 예외처리
 			try {
@@ -176,6 +176,7 @@ public class CategoryDao {
 				if(rs.next()) {
 					category = new Category();
 					category.setCategoryNo(rs.getInt("categoryNo"));
+					category.setCategoryKind(rs.getString("categoryKind"));
 					category.setCategoryName(rs.getString("categoryName"));
 				}
 			} catch(Exception e) {

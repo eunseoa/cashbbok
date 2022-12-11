@@ -30,7 +30,7 @@
 		return;
 	} else {
 		System.out.println("회원 레벨 수정 실패");
-		out.println("<script>alert('회원레벨 수정을 실패했습니다'); location.href='" + request.getContextPath() + "/admin/member/memberList.jsp" + "';</script>");
+		out.println("<script>alert('회원레벨 수정에 실패했습니다'); location.href='" + request.getContextPath() + "/admin/member/memberList.jsp" + "';</script>");
 		return;
 	}
 %>

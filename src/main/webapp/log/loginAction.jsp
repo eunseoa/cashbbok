@@ -14,8 +14,8 @@
 	if(request.getParameter("memberId") == null || request.getParameter("memberId").equals("")
 		|| request.getParameter("memberPw") == null || request.getParameter("memberPw").equals("")) {
 			System.out.println("정보 미입력");
-			String mas = URLEncoder.encode("모든 항목을 입력해주세요", "utf-8");
-			response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp?msg=" + mas);
+			String msg = URLEncoder.encode("입력되지않은 항목이 있습니다", "utf-8");
+			response.sendRedirect(request.getContextPath() + "/log/loginForm.jsp?msg=" + msg);
 			return;
 		}
 	
@@ -41,8 +41,8 @@
 			return;// 일반회원페이지로 이동
 		}
 	} else {
-		String mas = URLEncoder.encode("아이디나 비밀번호가 올바르지않습니다", "utf-8");
-		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp?msg=" + mas);
+		String msg = URLEncoder.encode("아이디나 비밀번호가 올바르지않습니다", "utf-8");
+		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp?msg=" + msg);
 		return;
 	}
 

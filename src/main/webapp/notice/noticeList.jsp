@@ -93,7 +93,7 @@
 								<%
 									if(loginMember.getMemberLevel() == 1) {
 								%>
-										<a href="<%=request.getContextPath() %>/admin/insertNoticeForm.jsp" class="btn bg-gradient-primary btn-lg">공지등록</a>
+										<a href="<%=request.getContextPath() %>/admin/notice/insertNoticeForm.jsp" class="btn bg-gradient-primary btn-lg">공지등록</a>
 								<%
 									} else {
 								%>

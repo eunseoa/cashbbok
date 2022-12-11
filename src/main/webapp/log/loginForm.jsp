@@ -67,7 +67,7 @@
 										<%
 											if(msg != null) {
 										%>
-												<p class="mb-0"><%=msg %></p>
+												<p class="mb-0" style="color:red;"><%=msg %></p>
 										<%
 											} else {
 										%>

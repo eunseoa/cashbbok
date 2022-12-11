@@ -140,11 +140,17 @@
 											<%
 												for(HashMap<String, Object> c : commentList) {
 												   System.out.println((c.get("commentMemo")));
+												   if(c.get("commentMemo") != null || c.get("commentMemo").equals("")) {
 											%>
-													<h6 class="mb-3 text-sm"><%=c.get("memberId") %></h6>
-													<span class="text-dark font-weight-bold ms-sm-2"><%=c.get("commentMemo") %></span><br>
-													<span class="mb-2 text-sm"><%=c.get("createdate") %></span>
+														<h6 class="mb-3 text-sm"><%=c.get("memberId") %></h6>
+														<span class="text-dark font-weight-bold ms-sm-2"><%=c.get("commentMemo") %></span><br>
+														<span class="mb-2 text-sm"><%=c.get("createdate") %></span>
 											<%
+												   } else {
+											%>
+														<h6 class="mb-3 text-sm">답변이 달리기 전입니다</h6>
+											<%
+												   }
 												}
 											%>
 										</div>

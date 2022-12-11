@@ -14,56 +14,56 @@
 				</a>
 			</div>
 			<hr class="horizontal dark mt-0">
-			<div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+			<div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link " href="<%=request.getContextPath() %>/cash/cashList.jsp">
-							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
+						<a class="nav-link" href="<%=request.getContextPath() %>/member/memberMain.jsp">
+							<span class="icon">
 							<i class="ni ni-favourite-28 text-primary text-sm opacity-10"></i>
-							</div>
+							</span>
 							<span class="nav-link-text ms-1">Main</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="<%=request.getContextPath() %>/cash/cashList.jsp">
-							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
+						<a class="nav-link" href="<%=request.getContextPath() %>/cash/cashList.jsp">
+							<span class="icon">
 								<i class="ni ni-calendar-grid-58 text-primary text-sm opacity-10"></i>
-							</div>
+							</span>
 							<span class="nav-link-text ms-1">CashBook</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="<%=request.getContextPath() %>/member/help/helpMain.jsp">
-							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
+						<a class="nav-link" href="<%=request.getContextPath() %>/member/help/helpMain.jsp">
+							<span class="icon">
 								<i class="ni ni-chat-round text-secondary text-sm opacity-10"></i>
-							</div>
-							<span class="nav-link-text ms-1">Q & A</span>
+							</span>
+							<span class="nav-link-text ms-1">Q &amp; A</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="<%=request.getContextPath() %>/notice/noticeList.jsp">
-							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
+						<a class="nav-link" href="<%=request.getContextPath() %>/notice/noticeList.jsp">
+							<span class="icon">
 								<i class="ni ni-single-copy-04 text-secondary text-sm opacity-10"></i>
-							</div>
+							</span>
 							<span class="nav-link-text ms-1">Notice</span>
 						</a>
 					</li>
 					<li class="nav-item mt-3">
-						<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">My Page</h6>
+						<h6 class="ps-4 ms-2 text-xs font-weight-bolder opacity-6">My Page</h6>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="<%=request.getContextPath() %>/member/memberOne.jsp">
-							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
+						<a class="nav-link" href="<%=request.getContextPath() %>/member/memberOne.jsp">
+							<span class="icon">
 							<i class="ni ni-badge text-dark text-sm opacity-10"></i>
-							</div>
+							</span>
 							<span class="nav-link-text ms-1">Profile</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="<%=request.getContextPath() %>/log/logout.jsp">
-							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center">
-								<i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-							</div>
+						<a class="nav-link" href="<%=request.getContextPath() %>/log/logout.jsp">
+							<span class="icon">
+								<i class="ni ni-settings-gear-65 text-dark text-sm opacity-10"></i>
+							</span>
 							<span class="nav-link-text ms-1">Logout</span>
 						</a>
 					</li>

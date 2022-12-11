@@ -137,7 +137,7 @@
 													<div>
 														<a href="<%=request.getContextPath() %>/cash/cashDateList.jsp?year=<%=year %>&month=<%=month+1 %>&date=<%=date %>"><%=date %></a>
 													</div>
-														<div >
+														<div>
 															<%
 																for(HashMap<String, Object> m : list) {
 																	String cashDate = (String)(m.get("cashDate"));

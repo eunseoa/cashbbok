@@ -13,9 +13,11 @@
 	
 	if(row == 1) {
 		System.out.println("삭제성공");
-		response.sendRedirect(request.getContextPath()+"/notice/noticeList.jsp");
+		response.sendRedirect(request.getContextPath()+"/admin/notice/noticeList.jsp");
+		return;
 	} else {
 		System.out.println("삭제실패");
-		response.sendRedirect(request.getContextPath()+"/notice/noticeOne.jsp?noticeNo=" + noticeNo);
+		response.sendRedirect(request.getContextPath()+"/admin/notice/noticeOne.jsp?noticeNo=" + noticeNo);
+		return;
 	}
 %>

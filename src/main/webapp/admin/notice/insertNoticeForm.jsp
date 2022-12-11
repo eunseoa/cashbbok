@@ -7,6 +7,9 @@
 		response.sendRedirect(request.getContextPath()+"/log/loginForm.jsp");
 		return;
 	}
+	
+	// 내용 미입력시 경고창 출력
+	String msg = request.getParameter("msg");
 %>
 <!DOCTYPE html>
 <html>
@@ -36,7 +39,7 @@
 	</head>
 	<body class="g-sidenav-show bg-gray-100">
 		<div class="min-height-300 bg-primary position-absolute w-100"></div>
-		<jsp:include page="/inc/sidebarByMember.jsp"></jsp:include>
+		<jsp:include page="/inc/sidebarByAdmin.jsp"></jsp:include>
 		<main class="main-content border-radius-lg">
 			<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
 				<div class="container-fluid py-1 px-3">
@@ -61,6 +64,22 @@
 						<div class="card-body px-0 pt-0 pb-0">
 							<form action="<%=request.getContextPath() %>/admin/notice/insertNoticeAction.jsp" method="post">
 								<table>
+									<tr>
+										<td></td>
+										<td>
+										<%
+											if(msg != null) {
+										%>
+												<span><%=msg %></span>
+										<%
+											} else { // 화면 비율을 맞추기 위해
+										%>
+												&nbsp;
+										<%
+											}
+										%>
+										</td>
+									</tr>
 									<tr>
 										<th>제목</th>
 										<td><input class="form-control"  type="text" name="noticeTitle"></td>

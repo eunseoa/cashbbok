@@ -302,7 +302,7 @@ public class MemberDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		int row = 0;
-		String sql = "UPDATE member SET member_level = ? WHERE member_no = ?";
+		String sql = "UPDATE member SET member_level = ?, updatedate = CURDATE() WHERE member_no = ?";
 		
 		// 예외처리
 		try {

@@ -76,7 +76,7 @@
 								<th>이름</th>
 								<th>마지막수정일자</th>
 								<th>생성일자</th>
-								<th>깅제탈퇴</th>
+								<th>강제탈퇴</th>
 							</tr>
 							<tr>
 							<%
@@ -89,14 +89,14 @@
 										<%
 											if(m.getMemberLevel() == 1) {
 										%>
-												<select name="changeLevel" class="form-control" style="width:150px;">
+												<select name="changeLevel" class="form-select" style="width:150px;">
 													<option value="1" selected>관리자</option>
 													<option value="0">일반회원</option>
 												</select>
 										<%
 											} else {
 										%>
-												<select name="changeLevel" class="form-control" style="width:150px;">
+												<select name="changeLevel" class="form-select" style="width:150px;">
 													<option value="1">관리자</option>
 													<option value="0" selected>일반회원</option>
 												</select>
