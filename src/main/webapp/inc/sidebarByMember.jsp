@@ -17,19 +17,27 @@
 			<div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="<%=request.getContextPath() %>/member/memberMain.jsp">
+						<a class="nav-link" href="<%=request.getContextPath() %>/cash/cashList.jsp">
 							<span class="icon">
 							<i class="ni ni-favourite-28 text-sm opacity-10" style="color: #4641D9"></i>
 							</span>
-							<span class="nav-link-text ms-1">Main</span>
+							<span class="nav-link-text ms-1">CashBook</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="<%=request.getContextPath() %>/cash/cashList.jsp">
+						<a class="nav-link" href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp">
 							<span class="icon">
-								<i class="ni ni-money-coins text-sm opacity-10" style="color: #6B66FF"></i>
+								<i class="ni ni-chart-pie-35 text-sm opacity-10" style="color: #6B66FF"></i>
 							</span>
-							<span class="nav-link-text ms-1">CashBook</span>
+							<span class="nav-link-text ms-1">Chart</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<%=request.getContextPath() %>/cash/cashYearList.jsp">
+							<span class="icon">
+								<i class="ni ni-chart-pie-35 text-sm opacity-10" style="color: #6B66FF"></i>
+							</span>
+							<span class="nav-link-text ms-1">Chart</span>
 						</a>
 					</li>
 					<li class="nav-item">

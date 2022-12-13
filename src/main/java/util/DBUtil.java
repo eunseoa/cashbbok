@@ -3,6 +3,7 @@ package util;
 import java.sql.*;
 
 public class DBUtil {
+	// db 접속
 	public Connection getConnection() throws Exception {
 		String driver = "org.mariadb.jdbc.Driver";
 		String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cashbook";

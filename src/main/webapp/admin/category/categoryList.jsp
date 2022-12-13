@@ -76,9 +76,10 @@
 													<select name="categoryKind" class="form-select">
 														<option value="수입">수입</option>
 														<option value="지출">지출</option>
+														<option value="저축">저축</option>
 													</select>
 													<br>
-													<input type="text" name="categoryName" class="form-control" placeholder="">
+													<input type="text" name="categoryName" class="form-control" placeholder="내역">
 													<%
 														if(msg != null) {
 													%>
@@ -105,7 +106,7 @@
 							<table class="table align-items-center mb-0">
 								<tr>
 									<th style="width:100px;">no</th>
-									<th>수입/지출</th>
+									<th>카테고리</th>
 									<th>이름</th>
 									<th>마지막 수정 날짜</th>
 									<th>생성 날짜</th>
@@ -117,7 +118,19 @@
 									for(Category c : categoryList) {
 								%>
 										<td><%=c.getCategoryNo() %></td>
-										<td><%=c.getCategoryKind() %></td>
+										<td>
+										<%
+											if(c.getCategoryKind().equals("수입") || c.getCategoryKind().equals("저축")) {
+										%>
+												<p style="color: #6799FF"><%=c.getCategoryKind() %></p>
+										<%
+											} else {
+										%>
+												<p style="color: #FF7E7E"><%=c.getCategoryKind() %></p>
+										<% 
+											}
+										%>
+										</td>
 										<td><%=c.getCategoryName() %></td>
 										<td><%=c.getUpdatedate() %></td>
 										<td><%=c.getCreatedate() %></td>

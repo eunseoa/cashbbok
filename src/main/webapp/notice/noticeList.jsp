@@ -13,10 +13,7 @@
 	if(loginMember == null) { // 비로그인시
 		out.println("<script>alert('로그인이 필요합니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
 		return;
-	} else if(loginMember.getMemberLevel() < 1) { // 일반회원일 경우
-		out.println("<script>alert('접근할 수 없습니다'); location.href='" + request.getContextPath() + "/log/loginForm.jsp" + "';</script>");
-		return;
-	}
+	} 
 	
 	// 페이징
 	int currentPage = 1;

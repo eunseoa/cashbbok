@@ -26,11 +26,11 @@
 	int row = categoryDao.insertCategroy(category);
 	
 	if(row == 1) {
-		System.out.println("추가 성공");
-		response.sendRedirect(request.getContextPath() + "/admin/category/categoryList.jsp");
+		System.out.println("카테고리 추가 성공");
+		out.println("<script>alert('카테고리를 추가했습니다'); location.href='" + request.getContextPath() + "/admin/category/categoryList.jsp" + "';</script>");
 		return;
 	} else {
-		System.out.println("추가 실패");
+		System.out.println("카테고리 추가 실패");
 		out.println("<script>alert('카테고리 추가에 실패했습니다'); location.href='" + request.getContextPath() + "/admin/category/categoryList.jsp" + "';</script>");
 		return;
 	}
