@@ -20,7 +20,7 @@
 		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
 		<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 	</head>
-	<body class="">
+	<body>
 		<!-- End Navbar -->
 		<main class="main-content  mt-0">
 			<div class="page-header align-items-start min-vh-30 t-5 pb-11 m-3 border-radius-lg">
@@ -40,21 +40,30 @@
 								<h5>Register with</h5>
 							</div>
 							<div class="card-body">
-								<form action="<%=request.getContextPath() %>/member/insertLoginAction.jsp" method="post">
+								<form id="signupForm" action="<%=request.getContextPath() %>/member/insertLoginAction.jsp" method="post">
 									<div class="mb-3">
-										<input type="text" name="memberName" class="form-control" placeholder="Name" aria-label="Name">
+										<input type="text" id="name" name="memberName" class="form-control" placeholder="Name" aria-label="Name">
 									</div>
 									<div class="mb-3">
-										<input type="text" name="memberId" class="form-control" placeholder="Id" aria-label="Id">
+										<input type="text" id="id" name="memberId" class="form-control" placeholder="Id" aria-label="Id">
 									</div>
 									<div class="mb-3">
-										<input type="password" name="memberPw" class="form-control" placeholder="Password" aria-label="Password">
+										<input type="password" id="pw1" name="memberPw1" class="form-control" placeholder="Password" aria-label="Password">
+									</div>
+									<div class="mb-3">
+										<input type="password" id="pw2" name="memberPw2" class="form-control" placeholder="Password" aria-label="Password">
+									</div>
+									<div class="form-check form-check-info text-start">
+										<input class="form-check-input" type="checkbox">
+										<label class="form-check-label">
+											I agree the <a href="" class="text-dark font-weight-bolder">Terms and Conditions</a><!-- 개인정보동의 페이지 만들어두기 -->
+										</label>
 									</div>
 									<div class="text-center">
-										<button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">회원가입</button>
+										<button type="button" id="signupBtn" class="btn bg-gradient-dark w-100 my-4 mb-2">회원가입</button>
 									</div>
 									<p class="text-sm mt-3 mb-0">
-										Already have an account? <a href="<%=request.getContextPath() %>/loginForm.jsp" class="text-dark font-weight-bolder">로그인</a>
+										Already have an account? <a href="<%=request.getContextPath() %>/log/loginForm.jsp" class="text-dark font-weight-bolder">로그인</a>
 									</p>
 								</form>
 							</div>
@@ -85,25 +94,51 @@
 				</div>
 			</div>
 		</footer>
-		<!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-		<!--   Core JS Files   -->
-		<script src="../assets/js/core/popper.min.js"></script>
-		<script src="../assets/js/core/bootstrap.min.js"></script>
-		<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-		<script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+		<!-- 유효성 검사 -->
 		<script>
-			var win = navigator.platform.indexOf('Win') > -1;
-			if (win && document.querySelector('#sidenav-scrollbar')) {
-				var options = {
-					damping : '0.5'
+			let signupBtn = window.document.querySelector("#signupBtn");
+			signupBtn.addEventListener('click', function() {
+				// 디버깅
+				console.log('signupBtn Click');
+				
+				// 이름 유효성(공백) 검사
+				let name = window.document.querySelector('#name');
+				if(name.value == '') {
+					alert('이름을 확인해주세요')
+					name.focus();
+					return;
 				}
-				Scrollbar.init(document.querySelector('#sidenav-scrollbar'),
-						options);
-			}
+				
+				// ID 유효성(공백) 검사
+				let id = window.document.querySelector('#id');
+				if(id.value == '') {
+					alert('아이디를 확인해주세요')
+					id.focus();
+					return;
+				}
+				
+				// 비밀번호 유효성(공백, 일치) 검사
+				let pw1 = window.document.querySelector('#pw1');
+				let pw2 = window.document.querySelector('#pw2');
+				if(pw1.value == '' || pw1.value != pw2.value) {
+					alert('비밀번호를 확인해주세요')
+					pw1.focus();
+					return;
+				}
+				
+				// 개인정보동의 유효성 검사
+				let ck = document.querySelectorAll('.form-check-input:checked');
+				console.log(ck);
+				if(ck.length != 1) {
+					alert('약관에 동의하세요');
+					// $('#ckBtn').focus();
+					return;
+				}
+				
+				// 유효성검사 통과하면 insertLoginAction.jsp로 넘어감
+				let signupForm = document.querySelector('#signupForm');
+				signupForm.submit();
+			});
 		</script>
-		<!-- Github buttons -->
-		<script async defer src="https://buttons.github.io/buttons.js"></script>
-		<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-		<script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 	</body>
 </html>

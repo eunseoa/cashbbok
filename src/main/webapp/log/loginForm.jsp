@@ -16,7 +16,7 @@
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
-	// 입력하지않은 항목이 있을때
+	// 아이디+비밀번호가 일치하지않을때
 	String msg = request.getParameter("msg");
 	
 	// Model 호출
@@ -56,12 +56,12 @@
 									<p class="mb-0">Enter your id and password to sign in</p>
 								</div>
 								<div class="card-body">
-									<form action="<%=request.getContextPath()%>/log/loginAction.jsp" method="post">
+									<form id="signinForm" action="<%=request.getContextPath()%>/log/loginAction.jsp" method="post">
 										<div class="mb-3">
-											<input type="text" class="form-control form-control-lg" name="memberId" placeholder="id" aria-label="id">
+											<input type="text" id="id" class="form-control form-control-lg" name="memberId" placeholder="id" aria-label="id">
 										</div>
 										<div class="mb-3">
-											<input type="password" class="form-control form-control-lg" name="memberPw" placeholder="Password" aria-label="Password">
+											<input type="password" id="pw" class="form-control form-control-lg" name="memberPw" placeholder="Password" aria-label="Password">
 										</div>
 										<div>
 										<%
@@ -77,7 +77,7 @@
 										%>
 										</div>
 										<div class="text-center">
-											<button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+											<button type="button" id="signinBtn" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
 										</div>
 									</form>
 								</div>
@@ -114,5 +114,34 @@
 				</div>
 			</div>
 		</main>
+		<!-- 우효성 검사 -->
+		<script>
+			let signinBtn = window.document.querySelector('#signinBtn');
+			signinBtn.addEventListener('click', function() {
+				// 디버깅
+				console.log('signinBtn Click');
+				
+				// ID 유효성(공백) 검사
+				let id = window.document.querySelector('#id');
+				if(id.value == '') {
+					alert('아이디를 확인해주세요');
+					id.focus();
+					return;
+				}
+				
+				//PW 유효성(공백) 검사
+				let pw = window.document.querySelector('#pw');
+				if(pw.value == '') {
+					alert('비밀번호를 확인해주세요') 
+					pw.focus();
+					return;
+					
+				}
+				
+				// 유효성검사 통과하면 loginAction.jsp로 넘어감
+				let signinForm = document.querySelector('#signinForm');
+				signinForm.submit();
+			});
+		</script>
 	</body>
 </html>

@@ -106,45 +106,60 @@
 						<div class="row">
 							<div class="col-xl-12">
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-xl-4 col-sm-6">
 										<div class="card">
-											<div class="card-header mx-4 p-3 text-center">
-												<div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
-													<i class="fas fa-credit-card opacity-10"></i>
+											<div class="card-body p-3">
+												<div class="row">
+													<div class="col-9">
+														<div class="numbers">
+															<p class="text-sm mb-0 text-uppercase font-weight-bold"><%=month + 1 %>월 총 수입</p>
+															<h5 class="font-weight-bolder">100원</h5>
+														</div>
+													</div>
+													<div class="col-3 text-end">
+														<div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+															<i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+														</div>
+													</div>
 												</div>
-											</div>
-											<div class="card-body pt-0 p-3 text-center">
-												<h6 class="text-center mb-0"><%=month + 1 %> 월 총 수입</h6>
-												<hr class="horizontal dark my-3">
-												<h5 class="mb-0">원</h5>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-4 mt-md-0 mt-4">
+									<div class="col-xl-4 col-sm-6">
 										<div class="card">
-											<div class="card-header mx-4 p-3 text-center">
-												<div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
-													<i class="fa fa-dollar-sign opacity-10"></i>
+											<div class="card-body p-3">
+												<div class="row">
+													<div class="col-9">
+														<div class="numbers">
+															<p class="text-sm mb-0 text-uppercase font-weight-bold"><%=month + 1 %>월 총 지출</p>
+															<h5 class="font-weight-bolder">100원</h5>
+														</div>
+													</div>
+													<div class="col-3 text-end">
+														<div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+															<i class="ni ni-credit-card text-lg opacity-10" aria-hidden="true"></i>
+														</div>
+													</div>
 												</div>
-											</div>
-											<div class="card-body pt-0 p-3 text-center">
-												<h6 class="text-center mb-0"><%=month + 1 %> 월 총 지출</h6>
-												<hr class="horizontal dark my-3">
-												<h5 class="mb-0">원</h5>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-4 mt-md-0 mt-4">
+									<div class="col-xl-4 col-sm-6">
 										<div class="card">
-											<div class="card-header mx-4 p-3 text-center">
-												<div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
-													<i class="fas fa-wallet opacity-10"></i>
+											<div class="card-body p-3">
+												<div class="row">
+													<div class="col-9">
+														<div class="numbers">
+															<p class="text-sm mb-0 text-uppercase font-weight-bold"><%=month + 1 %>월 총 저축</p>
+															<h5 class="font-weight-bolder">100원</h5>
+														</div>
+													</div>
+													<div class="col-3 text-end">
+														<div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+															<i class="ni ni-favourite-28 text-lg opacity-10" aria-hidden="true"></i>
+														</div>
+													</div>
 												</div>
-											</div>
-											<div class="card-body pt-0 p-3 text-center">
-												<h6 class="text-center mb-0"><%=month + 1 %> 월 총 저축</h6>
-												<hr class="horizontal dark my-3">
-												<h5 class="mb-0">원</h5>
 											</div>
 										</div>
 									</div>
@@ -153,13 +168,13 @@
 							<div class="col-md-12 mb-lg-0 mb-4">
 								<div class="row mt-4">
 									<div class="col-lg-12">
-										<div class="card" style="height: 700px;">
+										<div class="card" style="height: 800px;">
 											<div class="card-header">
 												<div class="row">
 													<div class="col-6 d-flex align-items-center">
-														<a href="<%=request.getContextPath()%>/member/memberMain.jsp?year=<%=year%>&month=<%=month - 1%>"><i class="ni ni-bold-left"></i></a>
+														<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month - 1%>"><i class="ni ni-bold-left"></i></a>
 													<%=year%>년 <%=month + 1%>월
-													<a href="<%=request.getContextPath()%>/member/memberMain.jsp?year=<%=year%>&month=<%=month + 1%>"><i class="ni ni-bold-right"></i></a>
+													<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month + 1%>"><i class="ni ni-bold-right"></i></a>
 													</div>
 													<div class="col-6 text-end">
 														<a href="<%=request.getContextPath() %>/cash/cashList.jsp" class="btn btn-outline-primary btn-sm mb-0">가계부</a>
@@ -237,42 +252,129 @@
 					</div>
 					<div class="col-lg-4">
 						<div class="row">
-							<div class="card h-100">
-								<div class="card-header pb-3 p-3">
-									<div class="row">
-										<div class="col-6 d-flex align-items-center">
-											<h6 class="mb-0"><a href="<%=request.getContextPath() %>/notice/noticeList.jsp">최근 공지</a></h6>
-										</div>
-										<div class="col-6 text-end">
-											<a href="<%=request.getContextPath() %>/notice/noticeList.jsp" class="btn btn-outline-primary btn-sm mb-0">공지</a>
+							<div class="col-lg-12 mb-lg-0 mb-4">
+								<div class="card z-index-2 h-100">
+									<div class="card-header pb-0 pt-3 bg-transparent">
+										<h6 class="text-capitalize">Sales overview</h6>
+									</div>
+									<div class="card-body p-3">
+										<div class="chart">
+											<canvas id="chart-line" class="chart-canvas" height="300"></canvas>
 										</div>
 									</div>
-								</div>
-								<div class="card-body p-3 pb-0">
-									<ul class="list-group">
-									
-									</ul>
 								</div>
 							</div>
-							<div class="card h-100 mt-4">
-								<div class="card-header pb-0 p-3">
-									<div class="row">
-										<div class="col-6 d-flex align-items-center">
-											<h6 class="mb-0"><!-- 그래프.. --></h6>
-										</div>
+						</div>
+						<div class="card h-100 mt-4">
+							<div class="card-header pb-0 p-3">
+								<div class="row">
+									<div class="col-6 d-flex align-items-center">
+										<h6 class="mb-0"><!-- 그래프.. --></h6>
 									</div>
 								</div>
-								<div class="card-body p-3 pb-0">
-									<ul class="list-group">
-										<li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-										</li>
-									</ul>
-								</div>
+							</div>
+							<div class="card-body p-3 pb-0">
+								<ul class="list-group">
+									<li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
+		<script>
+    var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+    new Chart(ctx1, {
+      type: "line",
+      data: {
+        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+          label: "Mobile apps",
+          tension: 0.4,
+          borderWidth: 0,
+          pointRadius: 0,
+          borderColor: "#5e72e4",
+          backgroundColor: gradientStroke1,
+          borderWidth: 3,
+          fill: true,
+          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+          maxBarThickness: 6
+
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#fbfbfb',
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#ccc',
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+  </script> 
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
 	</body>
 </html>

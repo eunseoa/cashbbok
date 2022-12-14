@@ -10,6 +10,8 @@
 	String memberId = request.getParameter("memberId");
 	String memberPw = request.getParameter("memberPw");
 	
+	/*
+	자바스크립트로 유효성검사처리해서 필요없음
 	// 미입력시
 	if(request.getParameter("memberId") == null || request.getParameter("memberId").equals("")
 		|| request.getParameter("memberPw") == null || request.getParameter("memberPw").equals("")) {
@@ -18,6 +20,7 @@
 			response.sendRedirect(request.getContextPath() + "/log/loginForm.jsp?msg=" + msg);
 			return;
 		}
+	*/
 	
 	Member paramMember = new Member(); // 모델 호출시 매개값
 	paramMember.setMemberId(memberId);

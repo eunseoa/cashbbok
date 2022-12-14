@@ -31,14 +31,18 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>고객센터</title>
+		<title>CashBook</title>
 		<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 		<link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
 		<script src="https://kit.fontawesome.com/42d5adcbca.js"></script>
 		<link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 		<style>
 			th {
-				width: 300px;
+				height: 50px;
+			}
+			
+			td {
+				height: 57px;
 			}
 		</style>
 	</head>
@@ -75,10 +79,10 @@
 					<div class="card-header pb-0">
 						<div class="row">
 							<div class="col-6 d-flex align-items-center">
-								<h4 class="mb-0">내가 작성한 문의글</h4>
+								<h4 class="mb-0"><%=year %>년 월 통계</h4>
 							</div>
 							<div class="col-6 text-end">
-								<a href="<%=request.getContextPath() %>/member/help/insertHelpForm.jsp" class="btn bg-gradient-primary btn-lg">문의하기</a>
+								<a href="<%=request.getContextPath() %>/cash/cashYearList.jsp" class="btn bg-gradient-primary btn-lg">년도별 통계</a>
 							</div>
 						</div>
 						<div class="card-body px-0 pt-0 pb-0 text-center">
@@ -107,13 +111,11 @@
 								<%
 									}
 								%>
-								<tr>
-									<td colspan="2">
-										<a href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp?year=<%=year - 1 %>">이전년도</a>
-										<a href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp?year=<%=year + 1 %>">다음년도</a>
-									</td>
-								</tr>
 							</table>
+							<div>
+								<a href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp?year=<%=year - 1 %>">이전년도</a>
+								<a href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp?year=<%=year + 1 %>">다음년도</a>
+							</div>
 						</div>
 					</div>
 				</div>
