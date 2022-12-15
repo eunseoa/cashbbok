@@ -25,6 +25,7 @@
 	
 	// Model 호츌
 	CashDao cashDao = new CashDao();
+	// 월별 수익, 지출 통계 list
 	ArrayList<HashMap<String, Object>> list = cashDao.selectCashSumAvgByMonthList(year, loginMember.getMemberId());
 %>
 <!DOCTYPE html>
@@ -43,6 +44,13 @@
 			
 			td {
 				height: 57px;
+			}
+			th:nth-child(n+2):nth-child(-n+3), td:nth-child(n+2):nth-child(-n+3) {
+				color: #6799FF;
+			}
+			
+			th:nth-child(n+4), td:nth-child(n+4) {
+				color: #FF7E7E;
 			}
 		</style>
 	</head>
@@ -75,7 +83,7 @@
 				</div>
 			</nav>
 			<div class="container-fluid py-4">
-				<div class="card" style="height: 900px;">
+				<div class="card" style="position:relative; height: 900px;">
 					<div class="card-header pb-0">
 						<div class="row">
 							<div class="col-6 d-flex align-items-center">
@@ -89,10 +97,8 @@
 							<table class="table align-items-center mb-0">
 								<tr>
 									<th>월별</th>
-									<th>수입Cnt(개)</th>
 									<th>수입합계</th>
 									<th>수입평균</th>
-									<th>지출Cnt</th>
 									<th>지출합계</th>
 									<th>지출평균</th>
 								</tr>
@@ -101,21 +107,21 @@
 									for(HashMap<String, Object> c : list) {
 								%>
 										<td><%=c.get("month") %></td>
-										<td><%=c.get("importCashCnt") %></td>
 										<td><%=c.get("importCashSum") %></td>
 										<td><%=c.get("importCashAvg") %></td>
-										<td><%=c.get("exportCashCnt") %></td>
 										<td><%=c.get("exportCashSum") %></td>
 										<td><%=c.get("exportCashAvg") %></td>
 										</tr><tr>
 								<%
 									}
 								%>
+								<tr style="position:absolute; bottom:0px;">
+									<td colspan="5">
+										<a href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp?year=<%=year - 1 %>">이전년도</a>
+										<a href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp?year=<%=year + 1 %>">다음년도</a>
+									</td>
+								</tr>
 							</table>
-							<div>
-								<a href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp?year=<%=year - 1 %>">이전년도</a>
-								<a href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp?year=<%=year + 1 %>">다음년도</a>
-							</div>
 						</div>
 					</div>
 				</div>

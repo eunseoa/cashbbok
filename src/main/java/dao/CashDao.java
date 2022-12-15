@@ -265,12 +265,10 @@ public class CashDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT YEAR(t2.cashDate) year"
-					+ "		, COUNT(t2.importCash) importCashCnt"
-					+ "		, IFNULL(SUM(t2.importCash), 0) importCashSum "
-					+ "		, IFNULL(ROUND(AVG(t2.importCash)), 0) importCashAvg"
-					+ "		, COUNT(t2.exportCash) exportCashCnt"
-					+ "		, IFNULL(SUM(t2.exportCash), 0) exportCashSum"
-					+ "		, IFNULL(ROUND(AVG(t2.exportCash)), 0) exportCashAvg "
+					+ "		, IFNULL(FORMAT(SUM(t2.importCash), 0), 0) importCashSum "
+					+ "		, IFNULL(FORMAT(ROUND(AVG(t2.importCash)), 0), 0) importCashAvg"
+					+ "		, IFNULL(FORMAT(SUM(t2.exportCash), 0), 0) exportCashSum"
+					+ "		, IFNULL(FORMAT(ROUND(AVG(t2.exportCash)), 0), 0) exportCashAvg "
 					+ "FROM "
 					+ "	(SELECT memberId"
 					+ "			, cashNo"
@@ -298,12 +296,10 @@ public class CashDao {
 			while(rs.next()) {
 				HashMap<String, Object> m = new HashMap<String, Object>();
 				m.put("year", rs.getInt("year"));
-				m.put("importCashCnt", rs.getInt("importCashCnt"));
-				m.put("importCashSum", rs.getInt("importCashSum"));
-				m.put("importCashAvg", rs.getInt("importCashAvg"));
-				m.put("exportCashCnt", rs.getInt("exportCashCnt"));
-				m.put("exportCashSum", rs.getInt("exportCashSum"));
-				m.put("exportCashAvg", rs.getInt("exportCashAvg"));
+				m.put("importCashSum", rs.getString("importCashSum"));
+				m.put("importCashAvg", rs.getString("importCashAvg"));
+				m.put("exportCashSum", rs.getString("exportCashSum"));
+				m.put("exportCashAvg", rs.getString("exportCashAvg"));
 				list.add(m);
 			}
 		} catch(Exception e) {
@@ -329,10 +325,122 @@ public class CashDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT MONTH(t2.cashDate) month"
-					+ "		, COUNT(t2.importCash) importCashCnt"
-					+ "		, IFNULL(SUM(t2.importCash), 0) importCashSum"
+					+ "		, IFNULL(FORMAT(SUM(t2.importCash), 0), 0) importCashSum"
+					+ "		, IFNULL(FORMAT(ROUND(AVG(t2.importCash)), 0), 0) importCashAvg"
+					+ "		, IFNULL(FORMAT(SUM(t2.exportCash), 0), 0) exportCashSum"
+					+ "		, IFNULL(FORMAT(ROUND(AVG(t2.exportCash)), 0), 0) exportCashAvg "
+					+ "FROM "
+					+ "	(SELECT memberId"
+					+ "			, cashNo"
+					+ "			, cashDate"
+					+ "			, IF(categoryKind = '수입', cashPrice, NULL) importCash"
+					+ "			, IF(categoryKind = '지출', cashPrice, NULL) exportCash"
+					+ "	FROM (SELECT cs.cash_no cashNo"
+					+ "					, cs.cash_date cashDate"
+					+ "					, cs.cash_price cashPrice"
+					+ "					, cg.category_kind categoryKind"
+					+ "					, cs.member_id memberId "
+					+ "			FROM cash cs "
+					+ "				INNER JOIN category cg ON cs.category_no = cg.category_no) t) t2 "
+					+ "WHERE t2.memberId = ? AND YEAR(t2.cashDate) = ? "
+					+ "GROUP BY MONTH(t2.cashDate) "
+					+ "ORDER BY MONTH(t2.cashDate) ASC";
+
+		try {
+			conn = dbUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setInt(2, year);
+			
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				HashMap<String, Object> m = new HashMap<String, Object>();
+				m.put("month", rs.getInt("month"));
+				m.put("importCashSum", rs.getString("importCashSum"));
+				m.put("importCashAvg", rs.getString("importCashAvg"));
+				m.put("exportCashSum", rs.getString("exportCashSum"));
+				m.put("exportCashAvg", rs.getString("exportCashAvg"));
+				list.add(m);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(null, stmt, conn);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	// 월별 통계 cashList에서 출력
+	public HashMap<String, Object> cashListByMonth(int year, int month, String memberId) {
+		// 초기화
+		HashMap<String, Object> cash = null;
+		// db 연결 메소드
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT MONTH(t2.cashDate) month "
+					+ "		, IFNULL(FORMAT(SUM(t2.importCash), 0), 0) importCash "
+					+ "		, IFNULL(FORMAT(SUM(t2.exportCash), 0), 0) exportCash "
+					+ "FROM "
+					+ "	(SELECT memberId "
+					+ "			, cashNo "
+					+ "			, cashDate "
+					+ "			, IF(categoryKind = '수입', cashPrice, NULL) importCash "
+					+ "			, IF(categoryKind = '지출', cashPrice, NULL) exportCash "
+					+ "	FROM (SELECT cs.cash_no cashNo "
+					+ "					, cs.cash_date cashDate "
+					+ "					, cs.cash_price cashPrice "
+					+ "					, cg.category_kind categoryKind "
+					+ "					, cs.member_id memberId "
+					+ "			FROM cash cs "
+					+ "				INNER JOIN category cg ON cs.category_no = cg.category_no) t) t2 "
+					+ "WHERE t2.memberId = ? AND YEAR(t2.cashDate) = ? AND MONTH(t2.cashDate) = ?";
+		try {
+			conn = dbUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setInt(2, year);
+			stmt.setInt(3, month);
+			
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				cash =  new HashMap<String, Object>();
+				cash.put("month", rs.getInt("month"));
+				cash.put("importCash", rs.getString("importCash"));
+				cash.put("exportCash", rs.getString("exportCash"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(rs, stmt, conn);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return cash;
+	}
+	
+	// 현재년도를 받아서 차트에 출력(int타입으로 받아야하기때문에 format 사용할 수 없음)
+	public ArrayList<HashMap<String, Object>> selectCashSumAvgByMonthIntList(int year, String memberId) {
+		// 초기화
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		// db 연결 메소드
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT IFNULL(SUM(t2.importCash), 0) importCashSum"
 					+ "		, IFNULL(ROUND(AVG(t2.importCash)), 0) importCashAvg"
-					+ "		, COUNT(t2.exportCash) exportCashCnt"
 					+ "		, IFNULL(SUM(t2.exportCash), 0) exportCashSum"
 					+ "		, IFNULL(ROUND(AVG(t2.exportCash)), 0) exportCashAvg "
 					+ "FROM "
@@ -362,11 +470,8 @@ public class CashDao {
 			
 			while(rs.next()) {
 				HashMap<String, Object> m = new HashMap<String, Object>();
-				m.put("month", rs.getInt("month"));
-				m.put("importCashCnt", rs.getInt("importCashCnt"));
 				m.put("importCashSum", rs.getInt("importCashSum"));
 				m.put("importCashAvg", rs.getInt("importCashAvg"));
-				m.put("exportCashCnt", rs.getInt("exportCashCnt"));
 				m.put("exportCashSum", rs.getInt("exportCashSum"));
 				m.put("exportCashAvg", rs.getInt("exportCashAvg"));
 				list.add(m);
@@ -383,5 +488,4 @@ public class CashDao {
 		
 		return list;
 	}
-		
 }

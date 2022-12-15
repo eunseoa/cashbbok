@@ -36,11 +36,11 @@
 				height: 60px;
 			}
 			
-			th:nth-child(n+2):nth-child(-n+4), td:nth-child(n+2):nth-child(-n+4) {
+			th:nth-child(n+2):nth-child(-n+3), td:nth-child(n+2):nth-child(-n+3) {
 				color: #6799FF;
 			}
 			
-			th:nth-child(n+5), td:nth-child(n+5) {
+			th:nth-child(n+4), td:nth-child(n+4) {
 				color: #FF7E7E;
 			}
 		</style>
@@ -81,17 +81,15 @@
 								<h4 class="mb-0">년도별 통계</h4>
 							</div>
 							<div class="col-6 text-end">
-								<a href="<%=request.getContextPath() %>/member/help/insertHelpForm.jsp" class="btn bg-gradient-primary btn-lg">월별 통계</a>
+								<a href="<%=request.getContextPath() %>/cash/cashSumAvgList.jsp" class="btn bg-gradient-primary btn-lg">월별 통계</a>
 							</div>
 						</div>
 						<div class="card-body px-0 pt-0 pb-0 text-center">
 							<table class="table align-items-center mb-0">
 								<tr>
 									<th>년도</th>
-									<th>수입카운트</th>
 									<th>수입합계</th>
 									<th>수입평균</th>
-									<th>지출카운트</th>
 									<th>지출합계</th>
 									<th>지출평균</th>
 								</tr>
@@ -100,10 +98,8 @@
 									for(HashMap<String, Object> c : list) {
 								%>
 										<td><%=c.get("year") %></td>
-										<td><%=c.get("importCashCnt") %></td>
 										<td><%=c.get("importCashSum") %></td>
 										<td><%=c.get("importCashAvg") %></td>
-										<td><%=c.get("exportCashCnt") %></td>
 										<td><%=c.get("exportCashSum") %></td>
 										<td><%=c.get("exportCashAvg") %></td>
 										</tr><tr>
